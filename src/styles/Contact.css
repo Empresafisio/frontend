@@ -1,0 +1,25 @@
+.contact {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.contact .contact-info {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.contact .contact-info div {
+    text-align: center;
+}

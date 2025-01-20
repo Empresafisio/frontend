@@ -2,25 +2,28 @@ import React from "react";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import Services from "../components/Services";
-import AboutUs from "../components/AboutUs";
+import Welcome from "../components/Welcome";
 import WorkProcess from "../components/WorkProcess";
-import Contact from "../components/Contact"; // Importação do componente Contact
+import Contact from "../components/Contact";
 import Footer from "../components/Footer";
-
 
 const HomePage = () => {
   return (
     <>
       <Header />
       <HeroSection />
-      <Services />
+      <section className="services-section">
+        <h2 className="services-title">Our Services</h2>
+        <Services />
+      </section>
       <section className="about-section">
-        <AboutUs />
+        <Welcome />
       </section>
       <section className="work-process-section">
         <WorkProcess />
       </section>
-      <section className="contact-section"> {/* Adicionando a seção de contatos */}
+      <section className="contact-section">
+        <h2>Contact Us</h2>
         <Contact />
       </section>
       <Footer />
@@ -29,4 +32,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

@@ -1,22 +1,45 @@
-.about {
-    padding: 40px 20px;
-    background-color: #f9f9f9;
-    text-align: center;
+/* Seção Bem-vindo à HomeCare */
+.about-us-section {
+    background-color: #f9fafc; /* Fundo claro */
+    padding: 80px 20px;
 }
 
-.about h2 {
+.about-us-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Responsividade para telas menores */
+}
+
+.about-us-image {
+    flex: 1;
+    max-width: 50%; /* Ajustar largura da imagem */
+}
+
+.about-us-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+.about-us-text {
+    flex: 1;
+    max-width: 50%;
+    text-align: left;
+}
+
+.about-us-text h2 {
     font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
     margin-bottom: 20px;
 }
 
-.about p {
-    font-size: 1.2rem;
+.about-us-text p {
+    font-size: 1rem;
     line-height: 1.6;
     color: #666;
-}
-
-.about img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 20px;
+    margin-bottom: 15px;
 }

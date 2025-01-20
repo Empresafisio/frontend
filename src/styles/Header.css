@@ -1,17 +1,68 @@
-.header {
-    background-color: #f8f9fa;
-    padding: 20px;
+/* Header */
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #f8f8f8;
+    padding: 20px 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.nav a {
-    margin-right: 15px;
-    text-decoration: none;
+header .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
     color: #333;
 }
 
-.nav a:hover {
+header nav {
+    display: flex;
+    gap: 20px; /* Reduzido de 30px para 20px */
+    flex-grow: 1;
+    margin-left: 15px; /* Reduzido de 30px para 15px */
+}
+
+header nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.4s ease; /* Transição mais suave */
+}
+
+header nav a:hover {
     color: #007bff;
+}
+
+header .login-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.4s ease;
+}
+
+header .login-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Itens ficam em coluna em telas menores */
+        align-items: flex-start;
+    }
+
+    header nav {
+        flex-grow: 0; /* Remove o espaçamento adicional */
+        margin-left: 0; /* Remove margem no modo responsivo */
+        margin-top: 10px;
+    }
+
+    header .login-button {
+        margin-top: 10px; /* Adiciona espaçamento no botão de login */
+        align-self: flex-end; /* Alinha o botão à direita */
+    }
 }

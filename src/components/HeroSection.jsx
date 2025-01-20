@@ -1,26 +1,36 @@
 import React from "react";
-import "../styles/HomePage.css"; // Importar os estilos necessários
-import bannerImage from "../assets/banner.png"; // Atualizar o caminho para a imagem
+import "../styles/HeroSection.css";
 
 const HeroSection = () => {
   return (
-    <section
-      className="hero"
-      style={{
-        backgroundImage: `url(${bannerImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "70vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "white",
-        textAlign: "center",
-      }}
-    >
+    <section className="hero-section">
       <div className="hero-content">
-        <h2>Saúde à distância de um clique!</h2>
-        <button className="cta-button">Learn More</button>
+        <div className="hero-text">
+          <h1>Saúde à distância de um clique!</h1>
+          <p>
+            Encontre os melhores profissionais e serviços de saúde ao seu alcance.
+          </p>
+        </div>
+        <div className="hero-form">
+          <h2>Encontre o melhor profissional para si:</h2>
+          <form>
+            <div className="form-group">
+              <label htmlFor="date">Data:</label>
+              <input type="date" id="date" placeholder="Selecione a data" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="location">Localização:</label>
+              <select id="location">
+                <option value="">Selecione a localização</option>
+                <option value="lisboa">Lisboa</option>
+                <option value="porto">Porto</option>
+              </select>
+            </div>
+            <button type="submit" className="submit-button">
+              Começar a procurar
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   );

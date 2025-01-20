@@ -13,6 +13,9 @@ const Header = () => {
         <Link to="/about-us">About Us</Link>
         <Link to="/contact">Contact Us</Link>
       </nav>
+      <Link to="/login" className="login-button">
+        Login
+      </Link>
     </header>
   );
 };

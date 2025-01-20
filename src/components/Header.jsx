@@ -11,7 +11,7 @@ const Header = () => {
         <Link to="/find-a-therapist">Find a Therapist</Link>
         <Link to="/my-concerns">My Concerns</Link>
         <Link to="/about-us">About Us</Link>
-        <Link to="/contact">Contact Us</Link>
+        <Link to="/contact-us">Contact Us</Link>
       </nav>
       <Link to="/login" className="login-button">
         Login

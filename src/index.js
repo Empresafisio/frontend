@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage.jsx"; // Extensão .jsx adicionada
 import FindTherapist from "./pages/FindTherapist.jsx"; // Extensão .jsx adicionada
 import MyConcerns from "./pages/MyConcerns.jsx"; // Extensão .jsx adicionada
 import AboutUs from "./pages/AboutUs.jsx"; // Extensão .jsx adicionada
-import Contact from "./pages/Contact.jsx"; // Extensão .jsx adicionada
+import ContactUs from "./pages/ContactUs.jsx"; // Extensão .jsx adicionada
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +15,7 @@ ReactDOM.render(
         <Route path="/find-a-therapist" element={<FindTherapist />} />
         <Route path="/my-concerns" element={<MyConcerns />} />
         <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact-us" element={<ContactUs />} />
       </Routes>
     </Router>
   </React.StrictMode>,

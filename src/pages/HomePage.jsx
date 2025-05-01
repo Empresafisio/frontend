@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import Services from "../components/Services";
@@ -8,6 +9,7 @@ import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 
 const HomePage = () => {
+
   return (
     <>
       <Header />
@@ -23,7 +25,6 @@ const HomePage = () => {
         <WorkProcess />
       </section>
       <section className="contact-section">
-        <h2>Contact Us</h2>
         <Contact />
       </section>
       <Footer />

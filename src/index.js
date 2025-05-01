@@ -9,6 +9,7 @@ import ContactUs from "./pages/ContactUs.jsx";
 import Login from "./pages/Login.jsx"; // Importa a página de login
 import Register from "./pages/Register.jsx"; // Importa a página de registro
 import { AuthProvider } from "./components/context/AuthContext.jsx"; // Importa o contexto de autenticação
+import PhysioDashboard from "./pages/PhysioDashboard.jsx";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +22,8 @@ ReactDOM.render(
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} /> {/* Adiciona a rota de registro */}
+          <Route path="/register" element={<Register />} /> 
+          <Route path="/fisioterapeuta" element={<PhysioDashboard />} /> 
         </Routes>
       </Router>
     </AuthProvider>

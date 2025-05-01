@@ -8,36 +8,42 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Logo */
 header .logo {
     font-size: 1.8rem;
     font-weight: bold;
     color: #333;
+    cursor: pointer;
 }
 
+/* Navegação principal */
 header nav {
     display: flex;
-    gap: 20px; /* Espaçamento entre links */
+    gap: 20px;
     flex-grow: 1;
-    margin-left: 15px; /* Margem entre o logo e os links */
+    margin-left: 15px;
 }
 
 header nav a {
     text-decoration: none;
     color: #333;
     font-size: 1rem;
-    transition: color 0.4s ease; /* Transição suave */
+    font-weight: 500;
+    transition: color 0.4s ease;
 }
 
 header nav a:hover {
     color: #007bff;
 }
 
-/* Botão Login/Logout */
+/* Links de autenticação (login/logout + ícone perfil) */
 .auth-links {
     display: flex;
     align-items: center;
+    gap: 15px;
 }
 
+/* Botão de Login e Logout */
 .auth-button {
     background-color: #007bff;
     color: white;
@@ -47,11 +53,29 @@ header nav a:hover {
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
+    border: none;
     transition: background-color 0.4s ease;
 }
 
 .auth-button:hover {
     background-color: #0056b3;
+}
+
+/* Ícone do Perfil */
+.profile-icon {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.profile-icon:hover {
+    color: #0056b3;
 }
 
 /* Responsividade */
@@ -65,6 +89,7 @@ header nav a:hover {
         flex-grow: 0;
         margin-left: 0;
         margin-top: 10px;
+        flex-wrap: wrap;
     }
 
     .auth-links {

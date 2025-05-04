@@ -8,12 +8,17 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Logo */
-header .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
+/* Link do logo */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Imagem do logo unificada */
+.logo-image-only {
+    height: 50px;
+    object-fit: contain;
 }
 
 /* Navegação principal */
@@ -36,7 +41,7 @@ header nav a:hover {
     color: #007bff;
 }
 
-/* Links de autenticação (login/logout + ícone perfil) */
+/* Links de autenticação */
 .auth-links {
     display: flex;
     align-items: center;
@@ -83,6 +88,11 @@ header nav a:hover {
     header {
         flex-direction: column;
         align-items: flex-start;
+        padding: 20px;
+    }
+
+    .logo-link {
+        margin-bottom: 10px;
     }
 
     header nav {
@@ -95,4 +105,9 @@ header nav a:hover {
     .auth-links {
         margin-top: 10px;
     }
+
+    .logo-image-only {
+        height: 35px;
+    }
 }
+

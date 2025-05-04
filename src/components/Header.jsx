@@ -1,26 +1,33 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Header.css";
-import { useAuth } from "./context/AuthContext.jsx"; // Importa o AuthContext
+import { useAuth } from "./context/AuthContext.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
+import logo from "../assets/logo.png";
 
 const Header = ({ hideLoginButton, hideRegisterButton }) => {
-  const { isAuthenticated, logout } = useAuth(); // Estado de autenticação e função logout
-  const navigate = useNavigate(); // Para navegar até o perfil
+  const { isAuthenticated, logout, user } = useAuth(); // ✅ unificado
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate("/"); // Após logout, volta para a página inicial
+    navigate("/");
   };
 
   const goToProfile = () => {
-    navigate("/fisioterapeuta"); // Vai para a área pessoal
+    if (user?.role === "cliente") {
+      navigate("/cliente");
+    } else {
+      navigate("/fisioterapeuta");
+    }
   };
 
   return (
     <header className="header">
-      <h1 className="logo">FisioHome</h1>
+      <Link to="/" className="logo-link">
+        <img src={logo} alt="FisioHome Logo" className="logo-image-only" />
+      </Link>
+
       <nav className="nav">
         <Link to="/">Home</Link>
         <Link to="/find-a-therapist">Find a Therapist</Link>
@@ -33,6 +40,7 @@ const Header = ({ hideLoginButton, hideRegisterButton }) => {
           </Link>
         )}
       </nav>
+
       <div className="auth-links">
         {!isAuthenticated ? (
           !hideLoginButton && (
@@ -42,8 +50,11 @@ const Header = ({ hideLoginButton, hideRegisterButton }) => {
           )
         ) : (
           <>
-            {/* Ícone de perfil visível apenas para utilizadores autenticados */}
-            <button className="profile-icon" onClick={goToProfile} title="Área Pessoal">
+            <button
+              className="profile-icon"
+              onClick={goToProfile}
+              title="Área Pessoal"
+            >
               <i className="fas fa-user-circle"></i>
             </button>
             <button onClick={handleLogout} className="auth-button">
@@ -57,3 +68,4 @@ const Header = ({ hideLoginButton, hideRegisterButton }) => {
 };
 
 export default Header;
+

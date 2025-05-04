@@ -1,0 +1,71 @@
+.edit-client-profile {
+  padding: 2rem;
+  background-color: #f5f5f5;
+  min-height: 80vh;
+}
+
+.profile-section {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h2 {
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  color: #222;
+}
+
+.profile-form {
+  display: block;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #0073e6;
+  outline: none;
+}
+
+.button-row {
+  text-align: right;
+}
+
+.save-button {
+  padding: 0.75rem 2rem;
+  background-color: #005caa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: #004a8b;
+}
+

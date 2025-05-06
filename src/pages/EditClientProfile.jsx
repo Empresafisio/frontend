@@ -24,35 +24,43 @@ const EditClientProfile = () => {
           <h2>Editar Perfil</h2>
           <form className="profile-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Nome Completo</label>
+              <label htmlFor="name">Nome Completo</label>
               <input
+                id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
+
             <div className="form-group">
-              <label>Email</label>
+              <label htmlFor="email">Email</label>
               <input
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
+
             <div className="form-group">
-              <label>Telefone</label>
+              <label htmlFor="phone">Telefone</label>
               <input
+                id="phone"
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Ex: 912345678"
               />
             </div>
-            <button type="submit" className="save-button">
-              Guardar Alterações
-            </button>
+
+            <div className="button-row">
+              <button type="submit" className="save-button">
+                Guardar Alterações
+              </button>
+            </div>
           </form>
         </section>
       </main>
@@ -62,4 +70,3 @@ const EditClientProfile = () => {
 };
 
 export default EditClientProfile;
-

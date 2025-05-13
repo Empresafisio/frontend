@@ -1,6 +1,5 @@
 @import "font-awesome/css/font-awesome.min.css";
 
-/* Variáveis de cores para fácil manutenção */
 :root {
   --primary-color: #007bff;
   --secondary-color: #6c757d;
@@ -12,42 +11,50 @@
   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Reset e estilos básicos */
-html,
-body {
+/* Tema escuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --footer-background: #1e1e1e;
+    --footer-text: #ccc;
+  }
+}
+
+/* Reset e básicos */
+html, body {
   margin: 0;
   padding: 0;
   font-family: "Arial", sans-serif;
-  background-color: var(--background-color); /* Fundo claro */
+  background-color: var(--background-color);
   color: var(--text-color);
-  height: 100%; /* Garante altura total da página */
+  height: 100%;
 }
 
 #root {
-  min-height: 100vh; /* O conteúdo principal ocupa pelo menos 100% da altura da tela */
+  min-height: 100vh;
   display: flex;
-  flex-direction: column; /* Empilha os elementos verticalmente */
+  flex-direction: column;
 }
 
 main {
-  flex: 1; /* Faz o conteúdo expandir e empurrar o footer para o final */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px; /* Espaçamento interno */
+  padding: 20px;
 }
 
 footer {
-  background-color: var(--footer-background); /* Cor de fundo do footer */
-  color: var(--footer-text); /* Cor do texto do footer */
+  background-color: var(--footer-background);
+  color: var(--footer-text);
   padding: 20px 0;
   text-align: center;
-  margin-top: auto; /* Empurra o footer para o final da página */
-  font-size: 0.9rem; /* Tamanho do texto */
+  margin-top: auto;
+  font-size: 0.9rem;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Links no footer */
 footer a {
   color: var(--primary-color);
   text-decoration: none;
@@ -58,25 +65,27 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Botões */
-button,
-a {
-  transition: all 0.3s ease; /* Transição suave */
+button, a {
+  transition: all 0.3s ease;
 }
 
-button:hover,
-a:hover {
-  transform: scale(1.05); /* Leve aumento ao passar o mouse */
+button:hover, a:hover {
+  transform: scale(1.05);
 }
 
-/* Estilos de formulários */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Formulários */
 form {
   background-color: #fff;
   padding: 20px;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   max-width: 400px;
-  width: 100%; /* Adapta ao tamanho da tela */
+  width: 100%;
 }
 
 form .form-group {
@@ -113,10 +122,17 @@ form button {
 }
 
 form button:hover {
-  background-color: darken(var(--primary-color), 10%);
+  background-color: #0056b3; /* fallback para darken */
 }
 
-/* Estilos para o header */
+/* Feedback */
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -149,7 +165,6 @@ header nav a:hover {
   color: var(--primary-color);
 }
 
-/* Links de autenticação */
 .auth-links {
   display: flex;
   gap: 15px;
@@ -173,12 +188,23 @@ header nav a:hover {
     align-items: flex-start;
   }
 
-  header nav {
-    margin-top: 10px;
-  }
-
+  header nav,
   .auth-links {
     margin-top: 10px;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  form {
+    padding: 15px;
+  }
+
+  header {
+    padding: 15px 30px;
+  }
+
+  button {
+    font-size: 0.9rem;
   }
 }

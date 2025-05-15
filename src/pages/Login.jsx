@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import "../styles/Login.css";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { useAuth } from "../components/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { colors } from "../theme/colors";
+import { spacing } from "../theme/spacing";
+import { font } from "../theme/typography";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,40 +15,34 @@ const Login = () => {
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+    setPasswordVisible((prev) => !prev);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Simulação de autenticação com utilizadores de teste
-    let userData = null;
-
-    if (email === "fisio@example.com" && password === "123456") {
-      userData = {
-        name: "Dr. Ana Fisio",
-        username: email,
+    const mockUsers = [
+      {
+        email: "fisio@example.com",
+        password: "123456",
         role: "fisioterapeuta",
-        registrationDate: "01-01-2021",
-        lastVisit: "02-05-2025",
-      };
-    } else if (email === "cliente@example.com" && password === "123456") {
-      userData = {
-        name: "Carlos Cliente",
-        username: email,
+        name: "Dr. Ana Fisio"
+      },
+      {
+        email: "cliente@example.com",
+        password: "123456",
         role: "cliente",
-        registrationDate: "15-03-2022",
-        lastVisit: "01-05-2025",
-      };
-    }
+        name: "Carlos Cliente"
+      }
+    ];
+
+    const userData = mockUsers.find(
+      (user) => user.email === email && user.password === password
+    );
 
     if (userData) {
-      login(userData);
-      if (userData.role === "fisioterapeuta") {
-        navigate("/fisioterapeuta");
-      } else {
-        navigate("/cliente");
-      }
+      login({ ...userData, username: email, registrationDate: "01-01-2024", lastVisit: "Hoje" });
+      navigate(userData.role === "fisioterapeuta" ? "/fisioterapeuta" : "/cliente");
     } else {
       alert("Credenciais inválidas");
     }
@@ -54,59 +50,95 @@ const Login = () => {
 
   return (
     <>
-      <Header /> {/* Corrigido: removido hideLoginButton */}
-      <main className="login-page">
-        <div className="login-container">
-          <h2>Welcome Back!</h2>
-          <form className="login-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Email</label>
+      <Header />
+      <main
+        style={{
+          backgroundColor: colors.login.background,
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: spacing.lg
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: colors.login.formBg,
+            padding: spacing.xl,
+            borderRadius: 12,
+            maxWidth: 400,
+            width: "100%",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+          }}
+        >
+          <h2 style={{ textAlign: "center", marginBottom: spacing.lg }}>Bem-vindo!</h2>
+          <form onSubmit={handleSubmit}>
+            <div style={{ marginBottom: spacing.md }}>
+              <label style={{ fontWeight: font.weight.bold }}>Email</label>
               <input
                 type="email"
-                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                style={{
+                  width: "100%",
+                  padding: spacing.sm,
+                  fontSize: font.size.base,
+                  border: `1px solid ${colors.login.border}`,
+                  borderRadius: 8
+                }}
               />
             </div>
-            <div className="form-group password-field">
-              <label>Password</label>
-              <div className="password-wrapper">
+
+            <div style={{ marginBottom: spacing.md }}>
+              <label style={{ fontWeight: font.weight.bold }}>Password</label>
+              <div style={{ position: "relative" }}>
                 <input
                   type={passwordVisible ? "text" : "password"}
-                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  style={{
+                    width: "100%",
+                    padding: spacing.sm,
+                    fontSize: font.size.base,
+                    border: `1px solid ${colors.login.border}`,
+                    borderRadius: 8
+                  }}
                 />
                 <span
-                  className="toggle-password"
                   onClick={togglePasswordVisibility}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: spacing.sm,
+                    transform: "translateY(-50%)",
+                    cursor: "pointer"
+                  }}
                 >
-                  <i
-                    className={`fa ${
-                      passwordVisible ? "fa-eye-slash" : "fa-eye"
-                    }`}
-                    aria-hidden="true"
-                  ></i>
+                  <i className={`fa ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`} />
                 </span>
               </div>
             </div>
-            <div className="form-group remember-me">
-              <label>
-                <input type="checkbox" className="checkbox" /> Remember Me
-              </label>
-              <a href="/forgot-password" className="forgot-password-link">
-                Forgot Password?
-              </a>
+
+            <div style={{ textAlign: "center", marginTop: spacing.lg }}>
+              <button
+                type="submit"
+                style={{
+                  backgroundColor: colors.login.focus,
+                  color: "#fff",
+                  padding: spacing.sm,
+                  fontSize: font.size.base,
+                  borderRadius: 8,
+                  border: "none",
+                  width: "100%",
+                  cursor: "pointer"
+                }}
+              >
+                Login
+              </button>
             </div>
-            <button type="submit" className="login-button">
-              Login
-            </button>
           </form>
-          <p className="register-link">
-            Not registered yet? <a href="/register">Create an account</a>
-          </p>
         </div>
       </main>
       <Footer />
@@ -115,4 +147,3 @@ const Login = () => {
 };
 
 export default Login;
-

@@ -6,7 +6,7 @@ const HeroSection = () => {
     <section className="hero">
       <div className="hero-content">
         <h2>Saúde à distância de um clique!</h2>
-        <button className="cta-button">Learn More</button>
+        <button className="cta-button">Saber Mais</button>
       </div>
     </section>
   );

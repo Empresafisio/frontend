@@ -1,35 +1,66 @@
 import React from "react";
-import "../styles/Contact.css";
-import IconLocation from "../assets/icon-location.png"; // Atualize o caminho conforme necessário
+import { colors } from "../theme/colors.js";
+import IconLocation from "../assets/icon-location.png";
 import IconPhone from "../assets/icon-phone.png";
 import IconEmail from "../assets/icon-email.png";
 
 const Contact = () => {
+  const contacts = [
+    {
+      icon: IconLocation,
+      title: "Office Address",
+      text: "74A High Road, Wanstead, London, E11 7RJ"
+    },
+    {
+      icon: IconPhone,
+      title: "Telephone number",
+      text: "078-4518-4100"
+    },
+    {
+      icon: IconEmail,
+      title: "Mail address",
+      text: "info@geoatherapydirectory.com"
+    }
+  ];
+
   return (
-    <section className="contact-section">
-      <h2>Contactos</h2>
-      <div className="contact-container">
-        <div className="contact-card">
-          <div className="icon-container">
-            <img src={IconLocation} alt="Office Address" />
+    <section
+      style={{
+        backgroundColor: colors.work.background, // mesmo fundo do Work Process
+        color: colors.home.contactText,
+        padding: "60px 20px",
+        textAlign: "center"
+      }}
+    >
+      <h2 style={{ marginBottom: 40, fontSize: 28 }}>Contactos</h2>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: 30,
+          maxWidth: 1000,
+          margin: "0 auto"
+        }}
+      >
+        {contacts.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              backgroundColor: "#fff",
+              padding: 24,
+              borderRadius: 12,
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.06)",
+              width: 280
+            }}
+          >
+            <div style={{ marginBottom: 16 }}>
+              <img src={item.icon} alt={item.title} style={{ width: 36 }} />
+            </div>
+            <h3 style={{ marginBottom: 8, fontSize: 16 }}>{item.title}</h3>
+            <p style={{ fontSize: 14 }}>{item.text}</p>
           </div>
-          <h3>Office Address</h3>
-          <p>74A High Road, Wanstead, London, E11 7RJ</p>
-        </div>
-        <div className="contact-card">
-          <div className="icon-container">
-            <img src={IconPhone} alt="Telephone number" />
-          </div>
-          <h3>Telephone number</h3>
-          <p>078-4518-4100</p>
-        </div>
-        <div className="contact-card">
-          <div className="icon-container">
-            <img src={IconEmail} alt="Mail address" />
-          </div>
-          <h3>Mail address</h3>
-          <p>info@geoatherapydirectory.com</p>
-        </div>
+        ))}
       </div>
     </section>
   );

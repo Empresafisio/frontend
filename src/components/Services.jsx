@@ -4,39 +4,40 @@ import IconHome from "../assets/process-1.svg";
 import IconOnline from "../assets/process-3.svg";
 import IconOther from "../assets/process-1-1.svg";
 
-const Services = () => {
-  return (
-    <section className="services-section">
-      <div className="services-container">
-        <div className="service-card">
-          <img src={IconHome} alt="Fisioterapia em casa" className="service-icon" />
-          <h3>Fisioterapia em casa</h3>
-          <p>
-            Conforto, segurança e resultados. Agende sua avaliação e recupere o seu bem-estar
-            sem sair de casa!
-          </p>
-          <a href="#fisioterapia">Encontre o seu Fisioterapeuta →</a>
+const services = [
+  {
+    icon: IconHome,
+    title: "Fisioterapia em casa",
+    description: "Conforto, segurança e resultados. Avaliação no conforto do lar.",
+    link: "#fisioterapia"
+  },
+  {
+    icon: IconOnline,
+    title: "Consulta Online",
+    description: "Flexibilidade e resultados. Avaliação remota com qualidade.",
+    link: "#consulta-online"
+  },
+  {
+    icon: IconOther,
+    title: "Outros serviços ao domicílio",
+    description: "Psicologia e outras especialidades diretamente em sua casa.",
+    link: "#outros-servicos"
+  }
+];
+
+const Services = () => (
+  <section className="services-section">
+    <div className="services-container">
+      {services.map((service, idx) => (
+        <div key={idx} className="service-card">
+          <img src={service.icon} alt={service.title} className="service-icon" />
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+          <a href={service.link}>Saber mais →</a>
         </div>
-        <div className="service-card">
-          <img src={IconOnline} alt="Consulta Online" className="service-icon" />
-          <h3>Consulta Online</h3>
-          <p>
-            Flexibilidade, praticidade e resultados. Agende sua avaliação online e recupere seu
-            bem-estar onde você estiver.
-          </p>
-          <a href="#consulta-online">Encontre o seu Fisioterapeuta →</a>
-        </div>
-        <div className="service-card">
-          <img src={IconOther} alt="Outros serviços ao domicílio" className="service-icon" />
-          <h3>Outros serviços ao domicílio</h3>
-          <p>
-            Psicologia e outras especialidades no conforto da sua casa.
-          </p>
-          <a href="#outros-servicos">Saiba mais →</a>
-        </div>
-      </div>
-    </section>
-  );
-};
+      ))}
+    </div>
+  </section>
+);
 
 export default Services;

@@ -1,20 +1,29 @@
 import React from "react";
+import "../styles/Contact.css";
 
 const Contact = () => {
   return (
-    <div className="contact-page">
-      <h1>Contact Us</h1>
-      <p>Feel free to get in touch with us for any queries or assistance.</p>
+    <section className="contact-page">
+      <h1>Contacte-nos</h1>
+      <p>Entre em contacto connosco para qualquer dúvida ou assistência.</p>
+
       <div className="contact-info">
-        <h4>Office Address</h4>
-        <p>74A, High Road, Wienstreet, London</p>
-        <h4>Telephone</h4>
-        <p>0976 45-81-100</p>
-        <h4>Email</h4>
-        <p>info@fisiohome.com</p>
+        <div className="info-block">
+          <h4>Morada</h4>
+          <p>74A, High Road, Wienstreet, London</p>
+        </div>
+
+        <div className="info-block">
+          <h4>Telefone</h4>
+          <p>0976 45-81-100</p>
+        </div>
+
+        <div className="info-block">
+          <h4>Email</h4>
+          <p>info@fisiohome.com</p>
+        </div>
       </div>
-      {/* Adicione mais conteúdo ou componentes aqui */}
-    </div>
+    </section>
   );
 };
 

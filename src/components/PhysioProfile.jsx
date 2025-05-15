@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useAuth } from "../components/context/AuthContext";
-import "../styles/PhysioProfile.css"; // Estilo específico para esta página
+import "../styles/PhysioProfile.css";
 
 const PhysioProfile = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("porReceber");
 
-  // Simulação de dados do histórico
   const historyData = [
     { anoMes: "02/2025", sessoes: 8, sRetencao: 500, cRetencao: 450 },
     { anoMes: "01/2025", sessoes: 10, sRetencao: 600, cRetencao: 540 },
@@ -16,15 +15,15 @@ const PhysioProfile = () => {
     <>
       <section className="profile-form-section">
         <h2>Perfil do Fisioterapeuta</h2>
-        <p>Aqui estão as informações associadas à sua conta.</p>
+        <p>Informações da sua conta:</p>
         <div className="profile-form">
           <div className="form-row">
             <div className="form-group">
-              <label>Nome Completo</label>
-              <input type="text" value={user?.name || "Profissional de Saúde"} readOnly />
+              <label>Nome</label>
+              <input type="text" value={user?.name || "Profissional"} readOnly />
             </div>
             <div className="form-group">
-              <label>Nome de utilizador</label>
+              <label>Utilizador</label>
               <input type="text" value={user?.username || "N/A"} readOnly />
             </div>
           </div>
@@ -41,13 +40,18 @@ const PhysioProfile = () => {
         </div>
       </section>
 
-      {/* Seção de Montantes por Receber e Histórico */}
       <section className="billing-section">
         <div className="billing-tabs">
-          <button className={activeTab === "porReceber" ? "active" : ""} onClick={() => setActiveTab("porReceber")}>
+          <button
+            className={activeTab === "porReceber" ? "active" : ""}
+            onClick={() => setActiveTab("porReceber")}
+          >
             Por Receber
           </button>
-          <button className={activeTab === "historico" ? "active" : ""} onClick={() => setActiveTab("historico")}>
+          <button
+            className={activeTab === "historico" ? "active" : ""}
+            onClick={() => setActiveTab("historico")}
+          >
             Histórico
           </button>
         </div>
@@ -55,14 +59,14 @@ const PhysioProfile = () => {
         <div className="billing-content">
           {activeTab === "porReceber" && (
             <div className="billing-table">
-              <h3>Montantes por receber à data</h3>
+              <h3>Montantes por receber</h3>
               <table>
                 <thead>
                   <tr>
                     <th>Paciente</th>
-                    <th>Ano/Mês</th>
-                    <th>#Sessões</th>
-                    <th>À Receber</th>
+                    <th>Data</th>
+                    <th># Sessões</th>
+                    <th>A Receber</th>
                     <th>Com Retenção</th>
                   </tr>
                 </thead>
@@ -76,32 +80,31 @@ const PhysioProfile = () => {
                   </tr>
                 </tbody>
               </table>
-
               <div className="billing-info">
                 <h4>Dados para Emissão de Recibos</h4>
                 <p><strong>Designação:</strong> FISIOHOME, LDA</p>
-                <p><strong>NIF:</strong> </p>
-                <p><strong>Morada:</strong> Rua </p>
+                <p><strong>NIF:</strong> [preencher]</p>
+                <p><strong>Morada:</strong> Rua [preencher]</p>
               </div>
             </div>
           )}
 
           {activeTab === "historico" && (
             <div className="billing-table">
-              <h3>Histórico de Montantes Recebidos</h3>
+              <h3>Histórico de Recebimentos</h3>
               <table>
                 <thead>
                   <tr>
-                    <th>Ano/Mês</th>
-                    <th>#Sessões</th>
-                    <th>S/Retenção</th>
-                    <th>C/Retenção</th>
+                    <th>Data</th>
+                    <th># Sessões</th>
+                    <th>S/ Retenção</th>
+                    <th>C/ Retenção</th>
                   </tr>
                 </thead>
                 <tbody>
                   {historyData.length > 0 ? (
-                    historyData.map((item, index) => (
-                      <tr key={index}>
+                    historyData.map((item, idx) => (
+                      <tr key={idx}>
                         <td>{item.anoMes}</td>
                         <td>{item.sessoes}</td>
                         <td>{item.sRetencao}€</td>

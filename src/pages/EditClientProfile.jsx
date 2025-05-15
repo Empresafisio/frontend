@@ -24,7 +24,7 @@ const EditClientProfile = () => {
           <h2>Editar Perfil</h2>
           <form className="profile-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Nome Completo</label>
+              <label htmlFor="name">Nome</label>
               <input
                 id="name"
                 type="text"
@@ -56,11 +56,9 @@ const EditClientProfile = () => {
               />
             </div>
 
-            <div className="button-row">
-              <button type="submit" className="save-button">
-                Guardar Alterações
-              </button>
-            </div>
+            <button type="submit" className="save-button">
+              Guardar Alterações
+            </button>
           </form>
         </section>
       </main>

@@ -9,9 +9,9 @@ const ContactUs = () => {
     <>
       <Header />
       <main className="contact-us-page">
-        <ContactForm /> {/* Formulário de Contato atualizado */}
+        <ContactForm />
         <section className="contact-section">
-          <Contact /> {/* Detalhes de Contato */}
+          <Contact />
         </section>
       </main>
       <Footer />

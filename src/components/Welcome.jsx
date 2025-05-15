@@ -12,17 +12,12 @@ const Welcome = () => {
         <div className="welcome-text">
           <h2>Bem-vindo à HomeCare</h2>
           <p>
-            A HomeCare é uma empresa portuguesa, dedicada à melhoria e
-            personalização dos serviços de saúde. Sabemos que cada pessoa é
-            diferente e, dado isto, percebemos a necessidade, acrescida nos dias
-            de hoje, de cada pessoa escolher o profissional de saúde mais indicado
-            para si.
+            A HomeCare é uma empresa portuguesa dedicada à melhoria e personalização dos serviços de saúde.
+            Cada pessoa é diferente, e acreditamos que deve poder escolher o profissional de saúde mais adequado para si.
           </p>
           <p>
-            Damos por isso a possibilidade do paciente poder escolher o
-            profissional que mais se adeque para o seu caso específico,
-            aumentando assim a confiança entre paciente e terapeuta, a uma
-            distância de alguns cliques.
+            Oferecemos uma plataforma simples e acessível onde pode selecionar o terapeuta mais indicado para o seu caso,
+            promovendo confiança e proximidade entre paciente e profissional.
           </p>
         </div>
       </div>

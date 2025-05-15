@@ -7,7 +7,7 @@ const FindTherapist = () => {
     <>
       <Header />
       <main className="find-therapist-page">
-        <h1>Encontre o Melhor Profissional para Você</h1>
+        <h1>Encontre o Melhor Profissional</h1>
         <form className="search-form">
           <label>
             Data:

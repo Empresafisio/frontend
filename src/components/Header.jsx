@@ -1,12 +1,16 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/Header.css";
-import { useAuth } from "./context/AuthContext.jsx";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import { useAuth } from "./context/AuthContext";
 import logo from "../assets/logo.png";
+import { colors } from "../theme/colors.js";
+import { spacing } from "../theme/spacing.js";
+import { border } from "../theme/border.js";
+import { buttons } from "../theme/buttons.js";
+
+
 
 const Header = ({ hideLoginButton, hideRegisterButton }) => {
-  const { isAuthenticated, logout, user } = useAuth(); // ✅ unificado
+  const { isAuthenticated, logout, user } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,49 +19,57 @@ const Header = ({ hideLoginButton, hideRegisterButton }) => {
   };
 
   const goToProfile = () => {
-    if (user?.role === "cliente") {
-      navigate("/cliente");
-    } else {
-      navigate("/fisioterapeuta");
-    }
+    navigate(user?.role === "cliente" ? "/cliente" : "/fisioterapeuta");
   };
 
   return (
-    <header className="header">
-      <Link to="/" className="logo-link">
-        <img src={logo} alt="FisioHome Logo" className="logo-image-only" />
-      </Link>
+    <header
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "10px 24px",
+        backgroundColor: colors.header.background,
+        fontFamily: "'Segoe UI', sans-serif",
+        boxShadow: border.shadow.default,
+        position: "sticky",
+        top: 0,
+        zIndex: 1000
+      }}
+    >
+      {/* Logo + nav links juntos à esquerda */}
+      <div style={{ display: "flex", alignItems: "center", gap: spacing.gap.lg }}>
+        <Link to="/" style={{ display: "flex", alignItems: "center" }}>
+          <img src={logo} alt="Logo" style={{ height: 28 }} />
+        </Link>
 
-      <nav className="nav">
-        <Link to="/">Home</Link>
-        <Link to="/find-a-therapist">Find a Therapist</Link>
-        <Link to="/my-concerns">My Concerns</Link>
-        <Link to="/about-us">About Us</Link>
-        <Link to="/contact-us">Contact Us</Link>
-        {!isAuthenticated && !hideRegisterButton && (
-          <Link to="/register" className="nav-link">
-            Register
-          </Link>
-        )}
-      </nav>
+        <nav style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          <NavLink to="/" label="Home" />
+          <NavLink to="/find-a-therapist" label="Find a Therapist" />
+          <NavLink to="/my-concerns" label="My Concerns" />
+          <NavLink to="/about-us" label="About Us" />
+          <NavLink to="/contact-us" label="Contact Us" />
+          {!isAuthenticated && !hideRegisterButton && (
+            <NavLink to="/register" label="Register" />
+          )}
+        </nav>
+      </div>
 
-      <div className="auth-links">
+      {/* Área direita: login/logout/área pessoal */}
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         {!isAuthenticated ? (
           !hideLoginButton && (
-            <Link to="/login" className="auth-button">
+            <Link to="/login" style={buttons.primary}>
               Login
             </Link>
           )
         ) : (
           <>
-            <button
-              className="profile-icon"
-              onClick={goToProfile}
-              title="Área Pessoal"
-            >
-              <i className="fas fa-user-circle"></i>
+            <button onClick={goToProfile} style={buttons.secondary}>
+              Área Pessoal
             </button>
-            <button onClick={handleLogout} className="auth-button">
+
+            <button onClick={handleLogout} style={buttons.primary}>
               Logout
             </button>
           </>
@@ -67,5 +79,19 @@ const Header = ({ hideLoginButton, hideRegisterButton }) => {
   );
 };
 
-export default Header;
+// Estilo de cada link
+const NavLink = ({ to, label }) => (
+  <Link
+    to={to}
+    style={{
+      fontSize: 14,
+      textDecoration: "none",
+      color: colors.header.text,
+      fontWeight: 400
+    }}
+  >
+    {label}
+  </Link>
+);
 
+export default Header;

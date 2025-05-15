@@ -1,5 +1,8 @@
+
+
 @import "font-awesome/css/font-awesome.min.css";
 
+/* Variáveis CSS personalizadas */
 :root {
   --primary-color: #007bff;
   --secondary-color: #6c757d;
@@ -22,7 +25,8 @@
 }
 
 /* Reset e básicos */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: "Arial", sans-serif;
@@ -65,15 +69,21 @@ footer a:hover {
   text-decoration: underline;
 }
 
-button, a {
+button,
+a {
   transition: all 0.3s ease;
 }
 
-button:hover, a:hover {
+button:hover,
+a:hover {
   transform: scale(1.05);
 }
 
-a:focus, button:focus, input:focus, select:focus, textarea:focus {
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
@@ -122,7 +132,7 @@ form button {
 }
 
 form button:hover {
-  background-color: #0056b3; /* fallback para darken */
+  background-color: #0056b3;
 }
 
 /* Feedback */

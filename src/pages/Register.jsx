@@ -6,55 +6,53 @@ import "../styles/Register.css";
 const Register = () => {
   const handleRegister = (event) => {
     event.preventDefault();
-    alert("Registration successful!");
+    alert("Registo efetuado com sucesso!");
   };
 
   return (
     <>
-      <Header hideRegisterButton={true} /> {/* Oculta o botão de Register no Header */}
-      <div className="register-page">
-        <h2>Register With Us</h2>
+      <Header hideRegisterButton={true} />
+      <main className="register-page">
+        <h2>Registar</h2>
         <form className="register-form" onSubmit={handleRegister}>
           <div className="form-group">
             <label>Nome Completo</label>
-            <input type="text" placeholder="Enter your name" required />
+            <input type="text" placeholder="Introduza o seu nome" required />
           </div>
           <div className="form-group">
             <label>Email</label>
-            <input type="email" placeholder="Enter your email id" required />
+            <input type="email" placeholder="Introduza o seu email" required />
           </div>
           <div className="form-group">
             <label>Password</label>
-            <input type="password" placeholder="Enter your password" required />
+            <input type="password" placeholder="Password" required />
           </div>
           <div className="form-group">
-            <label>Confirm Password</label>
-            <input type="password" placeholder="Confirm your password" required />
+            <label>Confirmar Password</label>
+            <input type="password" placeholder="Confirme a password" required />
           </div>
           <div className="form-group">
-            <label>Gender</label>
+            <label>Género</label>
             <select required>
-              <option value="">Select your gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="">Selecione o seu género</option>
+              <option value="male">Masculino</option>
+              <option value="female">Feminino</option>
             </select>
           </div>
           <div className="form-group">
-            <label>Birth Date</label>
+            <label>Data de Nascimento</label>
             <input type="date" required />
           </div>
           <div className="form-group">
-            <label>Clinical Record</label>
-            <textarea placeholder="Tell us about your clinical record"></textarea>
+            <label>Histórico Clínico</label>
+            <textarea placeholder="Descreva o seu histórico clínico" />
           </div>
-          <button type="submit" className="register-button">
-            Register
-          </button>
+          <button type="submit" className="register-button">Registar</button>
         </form>
         <p className="login-link">
-          Already have an account? <a href="/login">Login</a>
+          Já tem conta? <a href="/login">Iniciar sessão</a>
         </p>
-      </div>
+      </main>
       <Footer />
     </>
   );

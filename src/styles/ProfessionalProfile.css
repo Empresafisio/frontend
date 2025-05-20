@@ -1,0 +1,80 @@
+.profile-page {
+  background-color: #fcfcf7;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+}
+
+.profile-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+.especialidade {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #007bff;
+}
+
+.subespecialidade {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.localizacao, .preco {
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+.descricao {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.agendar-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.agendar-btn:hover {
+  background-color: #0056b3;
+}
+
+.avaliacoes, .atendimento {
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.avaliacao {
+  background-color: #f1f1f1;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}

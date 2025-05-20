@@ -12,6 +12,8 @@ import Register from "../pages/Register";
 import EditClientProfile from "../pages/EditClientProfile";
 import PhysioDashboard from "../pages/PhysioDashboard";
 import PrivateRoute from "../components/PrivateRoute";
+import ProfessionalProfile from "../pages/ProfessionalProfile";
+import AgendarConsulta from "../pages/AgendarConsulta";
 
 const AppRoutes = () => (
   <Routes>
@@ -22,6 +24,8 @@ const AppRoutes = () => (
     <Route path="/contact-us" element={<ContactUs />} />
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
+    <Route path="/profissional/:id" element={<ProfessionalProfile />} />
+    <Route path="/agendar/:id" element={<AgendarConsulta />} />
 
     {/* Rotas protegidas */}
     <Route path="/cliente" element={<PrivateRoute><ClientDashboard /></PrivateRoute>} />

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useAuth } from "../components/context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { colors } from "../theme/colors";
 import { spacing } from "../theme/spacing";
 import { font } from "../theme/typography";
@@ -13,6 +13,9 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirectTo = new URLSearchParams(location.search).get("redirect") || "/";
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
@@ -41,8 +44,13 @@ const Login = () => {
     );
 
     if (userData) {
-      login({ ...userData, username: email, registrationDate: "01-01-2024", lastVisit: "Hoje" });
-      navigate(userData.role === "fisioterapeuta" ? "/fisioterapeuta" : "/cliente");
+      login({
+        ...userData,
+        username: email,
+        registrationDate: "01-01-2024",
+        lastVisit: "Hoje"
+      });
+      navigate(redirectTo);
     } else {
       alert("Credenciais inválidas");
     }

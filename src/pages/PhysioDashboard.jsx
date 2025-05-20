@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import PhysioProfile from "../components/PhysioProfile";
+import ProfileSection from "../components/ProfileSection";
 import "../styles/PhysioDashboard.css";
 
 const TABS = [
@@ -11,7 +11,6 @@ const TABS = [
   { id: "sessoes", label: "Sessões" },
   { id: "honorarios", label: "Honorários" },
   { id: "blog", label: "Blog" },
-  { id: "plano", label: "Plano de Contingência COVID-19" }
 ];
 
 const PhysioDashboard = () => {
@@ -53,7 +52,7 @@ const PhysioDashboard = () => {
           </nav>
 
           <div className="dashboard-content">
-            {activeTab === "perfil" && <PhysioProfile />}
+            {activeTab === "perfil" && <ProfileSection />}
             {activeTab !== "perfil" && (
               <p>Conteúdo da secção "{TABS.find(t => t.id === activeTab)?.label}" a desenvolver.</p>
             )}

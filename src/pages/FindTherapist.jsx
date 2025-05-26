@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import profissionaisData from "../data/profissionais";
@@ -32,12 +32,14 @@ const subespecialidadesPorEspecialidade = {
 
 const FindTherapist = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const especialidadeQuery = queryParams.get("especialidade") || "";
 
   const [especialidade, setEspecialidade] = useState(especialidadeQuery);
   const [subespecialidade, setSubespecialidade] = useState("");
   const [localizacao, setLocalizacao] = useState("");
+  const [freguesia, setFreguesia] = useState("");
   const [precoMin, setPrecoMin] = useState("");
   const [precoMax, setPrecoMax] = useState("");
   const [nomeSearch, setNomeSearch] = useState("");
@@ -47,20 +49,37 @@ const FindTherapist = () => {
     setSubespecialidade("");
   }, [especialidadeQuery]);
 
-  const especialidades = [...new Set(profissionaisData.map(p => p.especialidade))];
+  const especialidades = [
+    ...new Set(profissionaisData.flatMap(p => p.especialidadesDetalhadas.map(e => e.especialidade)))
+  ];
+
   const localizacoes = [...new Set(profissionaisData.map(p => p.localizacao))];
+  const freguesias = [...new Set(profissionaisData.map(p => p.freguesia).filter(Boolean))];
 
   const profissionaisFiltrados = profissionaisData.filter((p) => {
-    const precoNum = parseFloat(p.preco.replace("€", ""));
+    const especialidades = p.especialidadesDetalhadas || [];
 
-    return (
-      (especialidade === "" || p.especialidade === especialidade) &&
-      (subespecialidade === "" || p.subespecialidade === subespecialidade) &&
-      (localizacao === "" || p.localizacao === localizacao) &&
-      (nomeSearch === "" || p.nome.toLowerCase().includes(nomeSearch.toLowerCase())) &&
-      (precoMin === "" || precoNum >= parseFloat(precoMin)) &&
-      (precoMax === "" || precoNum <= parseFloat(precoMax))
-    );
+    const correspondeEspecialidade = especialidade === "" || especialidades.some(e => e.especialidade === especialidade);
+    const correspondeSubespecialidade = subespecialidade === "" || especialidades.some(e => e.subespecialidade === subespecialidade);
+    const correspondeNome = nomeSearch === "" || p.nome.toLowerCase().includes(nomeSearch.toLowerCase());
+    const correspondeLocal = localizacao === "" || p.localizacao === localizacao;
+    const correspondeFreguesia = freguesia === "" || p.freguesia === freguesia;
+
+    const precoBase = especialidades.find(e =>
+      (especialidade === "" || e.especialidade === especialidade) &&
+      (subespecialidade === "" || e.subespecialidade === subespecialidade)
+    )?.preco || 0;
+
+    const dentroDoPrecoMin = precoMin === "" || precoBase >= parseFloat(precoMin);
+    const dentroDoPrecoMax = precoMax === "" || precoBase <= parseFloat(precoMax);
+
+    return correspondeEspecialidade &&
+           correspondeSubespecialidade &&
+           correspondeNome &&
+           correspondeLocal &&
+           correspondeFreguesia &&
+           dentroDoPrecoMin &&
+           dentroDoPrecoMax;
   });
 
   return (
@@ -69,7 +88,7 @@ const FindTherapist = () => {
       <main className="find-therapist-page">
         <section className="therapist-header">
           <h1>Encontre um Profissional</h1>
-          <p>Filtre por especialidade, subespecialidade, localização, nome ou preço.</p>
+          <p>Filtre por especialidade, subespecialidade, cidade, freguesia, nome ou preço.</p>
         </section>
 
         <section className="therapist-filter-section">
@@ -82,7 +101,7 @@ const FindTherapist = () => {
 
           <select value={especialidade} onChange={(e) => {
             setEspecialidade(e.target.value);
-            setSubespecialidade(""); // limpar subespecialidade
+            setSubespecialidade("");
           }}>
             <option value="">Todas as Especialidades</option>
             {especialidades.map((esp, index) => (
@@ -100,9 +119,16 @@ const FindTherapist = () => {
           )}
 
           <select value={localizacao} onChange={(e) => setLocalizacao(e.target.value)}>
-            <option value="">Todas as Localizações</option>
+            <option value="">Todas as Cidades</option>
             {localizacoes.map((loc, index) => (
               <option key={index} value={loc}>{loc}</option>
+            ))}
+          </select>
+
+          <select value={freguesia} onChange={(e) => setFreguesia(e.target.value)}>
+            <option value="">Todas as Freguesias</option>
+            {freguesias.map((freg, index) => (
+              <option key={index} value={freg}>{freg}</option>
             ))}
           </select>
 
@@ -124,15 +150,44 @@ const FindTherapist = () => {
         </section>
 
         <section className="lista-profissionais">
-          {profissionaisFiltrados.map((p) => (
-            <div key={p.id} className="card" onClick={() => window.location.href = `/profissional/${p.id}`}>
-              <img src={p.foto} alt={p.nome} />
-              <h3>{p.nome}</h3>
-              <p>{p.especialidade} · {p.localizacao}</p>
-              {p.subespecialidade && <p style={{ fontStyle: "italic" }}>{p.subespecialidade}</p>}
-              <p><strong>{p.preco}</strong></p>
-            </div>
-          ))}
+          {profissionaisFiltrados.length > 0 ? (
+            profissionaisFiltrados.map((p) => {
+              const especialidadesFiltradas = p.especialidadesDetalhadas.filter(e =>
+                (especialidade === "" || e.especialidade === especialidade) &&
+                (subespecialidade === "" || e.subespecialidade === subespecialidade)
+              );
+
+              const precoApresentado = especialidadesFiltradas?.[0]?.preco;
+
+              return (
+                <div key={p.id} className="card" onClick={() => navigate(`/profissional/${p.id}`)}>
+                  <img src={p.foto} alt={p.nome} />
+                  <h3>{p.nome}</h3>
+                  <p>{p.localizacao}{p.freguesia ? ` · ${p.freguesia}` : ""}</p>
+
+                  {especialidade === "" && subespecialidade === "" && (
+                    <p className="subespecialidade">
+                      {p.especialidadesDetalhadas.map(e => (
+                        e.subespecialidade ? e.subespecialidade : e.especialidade
+                      )).join(", ")}
+                    </p>
+                  )}
+
+                  {(especialidade !== "" || subespecialidade !== "") && (
+                    <p className="subespecialidade">
+                      {especialidadesFiltradas.map(e => e.subespecialidade || e.especialidade).join(", ")}
+                    </p>
+                  )}
+
+                  {precoApresentado !== undefined && (
+                    <p><strong>{precoApresentado.toFixed(2)}€</strong></p>
+                  )}
+                </div>
+              );
+            })
+          ) : (
+            <p className="nenhum-encontrado">Nenhum profissional encontrado com os filtros aplicados.</p>
+          )}
         </section>
       </main>
       <Footer />
@@ -141,3 +196,4 @@ const FindTherapist = () => {
 };
 
 export default FindTherapist;
+

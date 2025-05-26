@@ -12,7 +12,11 @@ const Header = ({ hideLoginButton, hideRegisterButton }) => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const especialidades = ["Fisioterapia", "Osteopatia", "Enfermagem ao domicílio"];
+  const especialidades = [
+    "Fisioterapia",
+    "Osteopatia",
+    "Enfermagem ao domicílio"
+  ];
 
   const handleLogout = () => {
     logout();
@@ -79,16 +83,21 @@ const Header = ({ hideLoginButton, hideRegisterButton }) => {
                   boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
                 }}
               >
-                <li
-                  style={{
-                    padding: "10px 16px",
-                    fontWeight: "bold",
-                    backgroundColor: "#f9f9f9",
-                    borderBottom: "1px solid #ddd",
-                    cursor: "default"
-                  }}
-                >
-                  Seleciona a especialidade
+                <li>
+                  <Link
+                    to="/find-a-therapist"
+                    style={{
+                      display: "block",
+                      padding: "10px 16px",
+                      fontWeight: "bold",
+                      backgroundColor: "#f9f9f9",
+                      borderBottom: "1px solid #ddd",
+                      color: "#333",
+                      textDecoration: "none"
+                    }}
+                  >
+                    Ver todos os profissionais
+                  </Link>
                 </li>
                 {especialidades.map((cat, idx) => (
                   <li
@@ -155,3 +164,4 @@ const NavLink = ({ to, label }) => (
 );
 
 export default Header;
+

@@ -1,15 +1,142 @@
 import React, { useState } from "react";
 import { useAuth } from "../components/context/AuthContext";
-import "../styles/PhysioProfile.css";
+import "../styles/ProfileSection.css";
 
 const ProfileSection = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("porReceber");
+  const [bio, setBio] = useState(user.bio || "");
+  const maxBioLength = 100;
+
+  const especialidadesDisponiveis = {
+    "Fisioterapia": [
+      "Fisioterapia Músculo-Esquelética",
+      "Fisioterapia Neurológica",
+      "Fisioterapia Respiratória",
+      "Fisioterapia Cardiorrespiratória",
+      "Fisioterapia Desportiva",
+      "Fisioterapia Geriátrica",
+      "Fisioterapia Pediátrica",
+      "Fisioterapia na Saúde da Mulher",
+      "Fisioterapia Uroginecológica",
+      "Fisioterapia Oncológica",
+      "Fisioterapia Dermatofuncional",
+      "Fisioterapia Traumato-Ortopédica",
+      "Fisioterapia Reumatológica",
+      "Fisioterapia Vestibular (Reabilitação do equilíbrio)",
+      "Fisioterapia Pélvica",
+      "Fisioterapia em Cuidados Intensivos",
+      "Fisioterapia Aquática",
+      "Fisioterapia do Trabalho (Ergonomia e reabilitação ocupacional)"
+    ],
+    "Osteopatia": [],
+    "Enfermagem ao domicílio": []
+  };
+
+  const [precos, setPrecos] = useState({
+  "Fisioterapia": [
+    {
+      sub: "Fisioterapia Desportiva",
+      preco: 40,
+      permitirDesconto: true,
+      pack5: 5,
+      pack10: 10,
+      pack15: 15,
+      pack20: 0
+    }
+  ],
+  "Osteopatia": [],
+  "Enfermagem ao domicílio": []
+});
+
+
+  const [curriculoDocs, setCurriculoDocs] = useState([]);
+  const [locaisTrabalho, setLocaisTrabalho] = useState([]);
+  const [novoLocal, setNovoLocal] = useState("");
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState("");
+  const [subespecialidadeSelecionada, setSubespecialidadeSelecionada] = useState("");
+
+  const handleAddDocumento = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const tipo = prompt("Tipo de documento (ex: Certificado, Declaração, CV)?");
+    if (!tipo) return;
+    setCurriculoDocs((prev) => [...prev, { file, tipo }]);
+    e.target.value = null;
+  };
+
+  const handleRemoveDocumento = (index) => {
+    setCurriculoDocs((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleAddLocal = () => {
+    if (novoLocal.trim()) {
+      setLocaisTrabalho((prev) => [...prev, novoLocal.trim()]);
+      setNovoLocal("");
+    }
+  };
+
+  const handleRemoveLocal = (index) => {
+    setLocaisTrabalho((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSalvarTudo = () => {
+    alert("Todas as alterações foram guardadas com sucesso!");
+  };
+
+  const handleSalvarBio = () => {
+    alert("Biografia atualizada!");
+  };
+
+  const handleSalvarPrecos = () => {
+    alert("Preços e descontos atualizados!");
+  };
+
+  const handleAdicionarEspecialidade = () => {
+  if (!especialidadeSelecionada) return;
+
+  // Se tiver subespecialidade, usa-a; senão, usa o nome da especialidade como sub
+  const novaSub = subespecialidadeSelecionada || especialidadeSelecionada;
+
+  // Verifica se já existe esta subespecialidade na especialidade selecionada
+  if (
+    precos[especialidadeSelecionada]?.some(
+      (item) => item.sub === novaSub
+    )
+  ) {
+    alert("Esta subespecialidade já foi adicionada.");
+    return;
+  }
+
+  const novaEntrada = {
+    sub: novaSub,
+    preco: 0,
+    permitirDesconto: false,
+    pack5: 0,
+    pack10: 0,
+    pack15: 0,
+    pack20: 0
+  };
+
+  // Garante que precos continua como um objeto, não array
+  setPrecos((prev) => {
+    const novo = { ...prev };
+    if (!novo[especialidadeSelecionada]) {
+      novo[especialidadeSelecionada] = [];
+    }
+    novo[especialidadeSelecionada] = [...novo[especialidadeSelecionada], novaEntrada];
+    return novo;
+  });
+
+  setEspecialidadeSelecionada("");
+  setSubespecialidadeSelecionada("");
+};
 
   const historyData = [
     { anoMes: "02/2025", sessoes: 8, sRetencao: 500, cRetencao: 450 },
     { anoMes: "01/2025", sessoes: 10, sRetencao: 600, cRetencao: 540 },
   ];
+
 
   return (
     <>
@@ -110,8 +237,176 @@ const ProfileSection = () => {
           )}
         </div>
       </section>
+
+<section className="curriculo-section">
+  <h3>Currículo Profissional</h3>
+  <label>Anexar documento (PDF, JPG, DOC)</label>
+  <input type="file" onChange={handleAddDocumento} accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+  <ul>
+    {curriculoDocs.map((doc, idx) => (
+      <li key={idx}>
+        {doc.file.name} ({doc.tipo}){" "}
+        <button onClick={() => handleRemoveDocumento(idx)}>Remover</button>
+      </li>
+    ))}
+  </ul>
+   <h3>Locais de Trabalho</h3>
+  <div className="dynamic-input">
+    <input
+      type="text"
+      placeholder="Ex: Clínica ABC"
+      value={novoLocal}
+      onChange={(e) => setNovoLocal(e.target.value)}
+    />
+    <button onClick={handleAddLocal}>Adicionar</button>
+  </div>
+  <ul>
+    {locaisTrabalho.map((local, i) => (
+      <li key={i}>
+        {local} <button onClick={() => handleRemoveLocal(i)}>Remover</button>
+      </li>
+    ))}
+  </ul>
+ <div style={{ textAlign: "center", margin: "30px 0" }}>
+  <button className="save-all-btn" onClick={handleSalvarTudo}>
+    Guardar Alterações
+  </button>
+ </div>
+
+</section>
+
+
+      <section className="edit-prices-section">
+  <h3>Editar Preços e Descontos por Subespecialidade</h3>
+
+  <div className="dynamic-input">
+    <select
+      value={especialidadeSelecionada}
+      onChange={(e) => {
+        setEspecialidadeSelecionada(e.target.value);
+        setSubespecialidadeSelecionada("");
+      }}
+    >
+      <option value="">Selecionar Especialidade</option>
+      {Object.keys(especialidadesDisponiveis).map((esp) => (
+        <option key={esp} value={esp}>{esp}</option>
+      ))}
+    </select>
+
+    {especialidadeSelecionada && especialidadesDisponiveis[especialidadeSelecionada].length > 0 && (
+      <select
+        value={subespecialidadeSelecionada}
+        onChange={(e) => setSubespecialidadeSelecionada(e.target.value)}
+      >
+        <option value="">Selecionar Subespecialidade</option>
+        {especialidadesDisponiveis[especialidadeSelecionada].map((sub) => (
+          <option key={sub} value={sub}>{sub}</option>
+        ))}
+      </select>
+    )}
+
+    <button
+      onClick={handleAdicionarEspecialidade}
+      disabled={
+        !especialidadeSelecionada ||
+        (especialidadesDisponiveis[especialidadeSelecionada].length > 0 && !subespecialidadeSelecionada)
+      }
+    >
+      Adicionar
+    </button>
+  </div>
+
+  {Object.entries(precos).map(([especialidade, lista]) =>
+    lista.length > 0 ? (
+      <div key={especialidade}>
+        <h4>{especialidade}</h4>
+        {lista.map((config, index) => (
+          <div key={`${especialidade}-${index}`} className="preco-bloco">
+            <div className="preco-row">
+              <label>{config.sub || especialidade}</label>
+              <input
+                type="number"
+                value={config.preco}
+                onChange={(e) => {
+                  const updated = { ...precos };
+                  updated[especialidade][index].preco = Number(e.target.value);
+                  setPrecos(updated);
+                }}
+              />
+              <span>€</span>
+
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={config.permitirDesconto}
+                  onChange={(e) => {
+                    const updated = { ...precos };
+                    updated[especialidade][index].permitirDesconto = e.target.checked;
+                    setPrecos(updated);
+                  }}
+                />
+                <span className="slider round"></span>
+              </label>
+              <span className="switch-label">Permitir desconto em packs</span>
+
+              <button
+                onClick={() => {
+                  const updated = { ...precos };
+                  updated[especialidade].splice(index, 1);
+                  setPrecos(updated);
+                }}
+                className="remove-btn"
+              >
+                Remover
+              </button>
+            </div>
+
+            {config.permitirDesconto && (
+              <div className="descontos-row">
+                {["pack5", "pack10", "pack15", "pack20"].map((key) => {
+                  const maxValues = {
+                    pack5: 2.5,
+                    pack10: 5,
+                    pack15: 7.5,
+                    pack20: 10
+                  };
+
+                  return (
+                    <div key={key}>
+                      <label>Pack {key.replace("pack", "")}</label>
+                      <input
+                        type="number"
+                        min={0}
+                        max={maxValues[key]}
+                        step={0.5}
+                        value={config[key]}
+                        onChange={(e) => {
+                          const value = Number(e.target.value);
+                          if (value >= 0 && value <= maxValues[key]) {
+                            const updated = { ...precos };
+                            updated[especialidade][index][key] = value;
+                            setPrecos(updated);
+                          }
+                        }}
+                      />
+                      <span>%</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    ) : null
+  )}
+
+  <button onClick={handleSalvarPrecos}>Guardar Preços</button>
+</section>
+
     </>
   );
 };
 
 export default ProfileSection;
+

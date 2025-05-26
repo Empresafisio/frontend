@@ -15,8 +15,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const redirectTo = new URLSearchParams(location.search).get("redirect") || "/";
-
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
   };
@@ -35,8 +33,10 @@ const Login = () => {
         email: "cliente@example.com",
         password: "123456",
         role: "cliente",
-        name: "Carlos Cliente"
-      }
+        name: "Carlos Cliente",
+        favoritos: ["1", "2"],
+        historico: ["3", "4"]
+     }
     ];
 
     const userData = mockUsers.find(
@@ -50,6 +50,13 @@ const Login = () => {
         registrationDate: "01-01-2024",
         lastVisit: "Hoje"
       });
+
+      // Redirecionar para rota específica ou para a área pessoal
+      let redirectTo = new URLSearchParams(location.search).get("redirect");
+      if (!redirectTo) {
+        redirectTo = userData.role === "fisioterapeuta" ? "/fisioterapeuta" : "/cliente";
+      }
+
       navigate(redirectTo);
     } else {
       alert("Credenciais inválidas");
@@ -155,3 +162,4 @@ const Login = () => {
 };
 
 export default Login;
+

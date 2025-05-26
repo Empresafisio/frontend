@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import profissionaisData from "../data/profissionais";
 import Header from "../components/Header";
@@ -9,11 +9,28 @@ import "../styles/ProfessionalProfile.css";
 const ProfessionalProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user, login } = useAuth();
+  const [packSize, setPackSize] = useState("5");
 
   const profissional = profissionaisData.find((p) => p.id === id);
+  const saldo = user?.sessoesDisponiveis?.[profissional.id] || 0;
 
-  if (!profissional) return <p>Profissional não encontrado.</p>;
+  const especialidadesDetalhadas = profissional?.especialidadesDetalhadas || [];
+
+  const especialidadesUnicas = [...new Set(especialidadesDetalhadas.map(e => e.especialidade))];
+
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState(especialidadesUnicas[0] || "");
+  const [subespecialidadeSelecionada, setSubespecialidadeSelecionada] = useState("");
+
+  const subespecialidadesFiltradas = especialidadesDetalhadas
+    .filter(e => e.especialidade === especialidadeSelecionada && e.subespecialidade)
+    .map(e => e.subespecialidade);
+
+  const precoAtual = especialidadesDetalhadas.find(
+    e =>
+      e.especialidade === especialidadeSelecionada &&
+      (e.subespecialidade === subespecialidadeSelecionada || (!e.subespecialidade && !subespecialidadeSelecionada))
+  )?.preco;
 
   const handleAgendar = () => {
     if (isAuthenticated) {
@@ -23,6 +40,25 @@ const ProfessionalProfile = () => {
     }
   };
 
+  const handleComprarPack = () => {
+    if (isAuthenticated) {
+      const novoSaldo = saldo + parseInt(packSize);
+      const novoUser = {
+        ...user,
+        sessoesDisponiveis: {
+          ...user.sessoesDisponiveis,
+          [profissional.id]: novoSaldo
+        }
+      };
+      login(novoUser);
+      alert(`Compraste um pack de ${packSize} sessões com ${profissional.nome}.`);
+    } else {
+      navigate(`/login?redirect=/profissional/${profissional.id}`);
+    }
+  };
+
+  if (!profissional) return <p>Profissional não encontrado.</p>;
+
   return (
     <>
       <Header />
@@ -30,18 +66,86 @@ const ProfessionalProfile = () => {
         <div className="profile-card">
           <img src={profissional.foto} alt={profissional.nome} className="profile-photo" />
           <h2>{profissional.nome}</h2>
-          <p className="especialidade">{profissional.especialidade}</p>
-          {profissional.subespecialidade && (
-            <p className="subespecialidade">{profissional.subespecialidade}</p>
-          )}
+
+          <div className="especialidade-selector">
+            <label>Especialidade</label>
+            <select
+              value={especialidadeSelecionada}
+              onChange={(e) => {
+                setEspecialidadeSelecionada(e.target.value);
+                setSubespecialidadeSelecionada("");
+              }}
+            >
+              {especialidadesUnicas.map((esp, idx) => (
+                <option key={idx} value={esp}>{esp}</option>
+              ))}
+            </select>
+
+            {subespecialidadesFiltradas.length > 0 && (
+              <>
+                <label>Subespecialidade</label>
+                <select
+                  value={subespecialidadeSelecionada}
+                  onChange={(e) => setSubespecialidadeSelecionada(e.target.value)}
+                >
+                  <option value="">Selecionar</option>
+                  {subespecialidadesFiltradas.map((sub, idx) => (
+                    <option key={idx} value={sub}>{sub}</option>
+                  ))}
+                </select>
+              </>
+            )}
+          </div>
+
           <p className="localizacao">📍 {profissional.localizacao}</p>
-          <p className="preco">💶 {profissional.preco} / consulta</p>
+
+          <p className="preco">
+            💶 {precoAtual ? `${precoAtual.toFixed(2)}€` : "—"} / consulta
+          </p>
 
           <p className="descricao">{profissional.descricao}</p>
+
+          {isAuthenticated && saldo > 0 && (
+            <p style={{ color: "#28a745", fontWeight: "bold", marginTop: "1rem" }}>
+              Saldo de sessões disponíveis: {saldo}
+            </p>
+          )}
 
           <button className="agendar-btn" onClick={handleAgendar}>
             Agendar Consulta
           </button>
+
+          <div className="pack-compra">
+            <label htmlFor="pack">Ou compre um pack:</label>
+            <select id="pack" value={packSize} onChange={(e) => setPackSize(e.target.value)}>
+              <option value="3">Pack 3 Sessões</option>
+              <option value="5">Pack 5 Sessões</option>
+              <option value="10">Pack 10 Sessões</option>
+            </select>
+            <button onClick={handleComprarPack}>Comprar Pack</button>
+          </div>
+
+          {profissional.formacoes?.length > 0 && (
+            <section className="formacoes-section">
+              <h3>Formações</h3>
+              <ul>
+                {profissional.formacoes.map((f, idx) => (
+                  <li key={idx}>{f}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {profissional.locaisTrabalho?.length > 0 && (
+            <section className="locais-section">
+              <h3>Locais de Trabalho</h3>
+              <ul>
+                {profissional.locaisTrabalho.map((l, idx) => (
+                  <li key={idx}>{l}</li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <section className="avaliacoes">
             <h3>O que dizem os clientes</h3>
@@ -67,3 +171,4 @@ const ProfessionalProfile = () => {
 };
 
 export default ProfessionalProfile;
+

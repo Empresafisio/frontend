@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProfileSection from "../components/ProfileSection";
+import AgendaSection from "../components/AgendaSection";
+import DisponibilidadeSection from "../components/DisponibilidadeSection";
+import DocumentacaoSection from "../components/DocumentacaoSection";
+import TratamentosSection from "../components/TratamentosSection";
+import HonorariosSection from "../components/HonorariosSection";
 import "../styles/PhysioDashboard.css";
 
 const TABS = [
   { id: "perfil", label: "Perfil do Utilizador" },
   { id: "documentacao", label: "Documentação" },
   { id: "tratamentos", label: "Tratamentos" },
-  { id: "sessoes", label: "Sessões" },
-  { id: "honorarios", label: "Honorários" },
-  { id: "blog", label: "Blog" },
+  { id: "agenda", label: "Agenda" },
+  { id: "disponibilidade", label: "Disponibilidade" },
+  { id: "honorarios", label: "Honorários" }
 ];
 
 const PhysioDashboard = () => {
@@ -26,7 +31,7 @@ const PhysioDashboard = () => {
             {TABS.map((tab) => (
               <div
                 key={tab.id}
-                className="tab-wrapper"
+                className={`tab-wrapper ${tab.id === "perfil" ? "has-dropdown" : ""}`}
                 onMouseEnter={() => tab.id === "perfil" && setDropdownOpen(true)}
                 onMouseLeave={() => tab.id === "perfil" && setDropdownOpen(false)}
               >
@@ -39,8 +44,9 @@ const PhysioDashboard = () => {
                 >
                   {tab.label}
                 </button>
-                {tab.id === "perfil" && (
-                  <ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
+
+                {tab.id === "perfil" && dropdownOpen && (
+                  <ul className="dropdown-menu">
                     <li><a href="#">Editar Perfil</a></li>
                     <li><a href="#">Dados para Pagamento</a></li>
                     <li><a href="#">Ausências</a></li>
@@ -53,9 +59,12 @@ const PhysioDashboard = () => {
 
           <div className="dashboard-content">
             {activeTab === "perfil" && <ProfileSection />}
-            {activeTab !== "perfil" && (
-              <p>Conteúdo da secção "{TABS.find(t => t.id === activeTab)?.label}" a desenvolver.</p>
-            )}
+            {activeTab === "documentacao" && <DocumentacaoSection />}
+            {activeTab === "agenda" && <AgendaSection />}
+            {activeTab === "disponibilidade" && <DisponibilidadeSection />}
+            {activeTab === "tratamentos" && <TratamentosSection />}
+            {activeTab === "honorarios" && <HonorariosSection />}
+          
           </div>
         </div>
       </main>
@@ -65,3 +74,4 @@ const PhysioDashboard = () => {
 };
 
 export default PhysioDashboard;
+

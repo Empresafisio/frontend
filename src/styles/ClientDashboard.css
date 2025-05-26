@@ -42,3 +42,40 @@
   background-color: #004a8b;
 }
 
+/* Sessões por Agendar */
+.sessao-pendente {
+  background-color: #ffffff;
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sessao-pendente h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.sessao-bloco {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.75rem;
+}
+
+.sessao-bloco button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.sessao-bloco button:hover {
+  background-color: #0056b3;
+}
+

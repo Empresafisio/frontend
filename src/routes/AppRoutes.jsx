@@ -14,6 +14,9 @@ import PhysioDashboard from "../pages/PhysioDashboard";
 import PrivateRoute from "../components/PrivateRoute";
 import ProfessionalProfile from "../pages/ProfessionalProfile";
 import AgendarConsulta from "../pages/AgendarConsulta";
+import MarcarConsultaCliente from "../pages/MarcarConsultaCliente"; // 
+import ProfissionalDetalhe from "../pages/ProfissionalDetalhe";
+import HistoricoConsultas from "../pages/HistoricoConsultas";
 
 const AppRoutes = () => (
   <Routes>
@@ -30,8 +33,13 @@ const AppRoutes = () => (
     {/* Rotas protegidas */}
     <Route path="/cliente" element={<PrivateRoute><ClientDashboard /></PrivateRoute>} />
     <Route path="/cliente/editar-perfil" element={<PrivateRoute><EditClientProfile /></PrivateRoute>} />
+    <Route path="/cliente/marcar-consulta" element={<PrivateRoute><MarcarConsultaCliente /></PrivateRoute>} />
     <Route path="/fisioterapeuta" element={<PrivateRoute><PhysioDashboard /></PrivateRoute>} />
+    <Route path="/cliente/historico" element={<PrivateRoute><HistoricoConsultas /></PrivateRoute>} />
+
+
   </Routes>
 );
 
 export default AppRoutes;
+

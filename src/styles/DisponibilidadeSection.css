@@ -1,0 +1,91 @@
+.disponibilidade-section {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.disponibilidade-section h2 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.disponibilidade-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.calendar-wrapper {
+  flex: 1 1 300px;
+  max-width: 400px;
+}
+
+.form-wrapper {
+  flex: 1 1 300px;
+  max-width: 500px;
+}
+
+.form-wrapper h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #007bff;
+}
+
+.slots-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.slots-list li {
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.slots-list li:last-child {
+  border-bottom: none;
+}
+
+.slots-list button {
+  background: transparent;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-row input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.input-row button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.input-row button:hover {
+  background-color: #218838;
+}
+

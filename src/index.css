@@ -1,5 +1,3 @@
-
-
 @import "font-awesome/css/font-awesome.min.css";
 
 /* Variáveis CSS personalizadas */
@@ -42,12 +40,11 @@ body {
 }
 
 main {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
+
 
 footer {
   background-color: var(--footer-background);
@@ -218,3 +215,4 @@ header nav a:hover {
     font-size: 0.9rem;
   }
 }
+

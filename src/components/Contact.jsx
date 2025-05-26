@@ -32,7 +32,7 @@ const Contact = () => {
         textAlign: "center"
       }}
     >
-      <h2 style={{ marginBottom: 40, fontSize: 28 }}>Contactos</h2>
+      <h2>Contactos</h2>
       <div
         style={{
           display: "flex",

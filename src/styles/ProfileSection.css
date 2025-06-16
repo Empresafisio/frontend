@@ -120,42 +120,42 @@
 
 /* Secção Biografia */
 .edit-bio-section {
-  margin-top: 30px;
-  background-color: #fefefe;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.edit-bio-section h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #333;
+  margin-top: 2rem;
+  padding: 1rem 0;
 }
 
 .edit-bio-section textarea {
   width: 100%;
-  padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  resize: vertical;
+  padding: 10px;
   font-size: 1rem;
-  margin-bottom: 10px;
+  resize: none;
+  box-sizing: border-box;
 }
 
-.edit-bio-section button {
+.bio-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.bio-save-btn {
+  padding: 6px 12px;
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 18px;
+  font-size: 0.95rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
 }
 
-.edit-bio-section button:hover {
+.bio-save-btn:hover {
   background-color: #0056b3;
 }
+
+
 
 /* Secção Preços e Descontos */
 .edit-prices-section {
@@ -471,3 +471,49 @@ input:checked + .slider:before {
 
 
 
+.area-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.area-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+
+.area-item span {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.area-item button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.area-item button:hover {
+  background-color: #c82333;
+}
+
+
+.curriculo-section textarea,
+.curriculo-section input,
+.curriculo-section select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}

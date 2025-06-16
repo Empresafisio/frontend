@@ -1,4 +1,4 @@
-.profile-page {
+.profile-page { 
   background-color: #fcfcf7;
   padding: 60px 20px;
   display: flex;
@@ -50,6 +50,12 @@ h2 {
   font-size: 1rem;
   line-height: 1.6;
   color: #444;
+}
+
+.profile-description {
+  margin-top: 2rem;
+  text-align: left;
+  padding: 0 0.5rem;
 }
 
 .agendar-btn {
@@ -153,3 +159,15 @@ h2 {
   cursor: pointer;
 }
 
+
+.bio-section {
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.bio-section p {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}

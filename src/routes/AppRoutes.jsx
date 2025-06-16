@@ -17,6 +17,7 @@ import AgendarConsulta from "../pages/AgendarConsulta";
 import MarcarConsultaCliente from "../pages/MarcarConsultaCliente"; // 
 import ProfissionalDetalhe from "../pages/ProfissionalDetalhe";
 import HistoricoConsultas from "../pages/HistoricoConsultas";
+import ProximasConsultas from "../pages/ProximasConsultas";
 
 const AppRoutes = () => (
   <Routes>
@@ -30,12 +31,15 @@ const AppRoutes = () => (
     <Route path="/profissional/:id" element={<ProfessionalProfile />} />
     <Route path="/agendar/:id" element={<AgendarConsulta />} />
 
+
     {/* Rotas protegidas */}
     <Route path="/cliente" element={<PrivateRoute><ClientDashboard /></PrivateRoute>} />
     <Route path="/cliente/editar-perfil" element={<PrivateRoute><EditClientProfile /></PrivateRoute>} />
     <Route path="/cliente/marcar-consulta" element={<PrivateRoute><MarcarConsultaCliente /></PrivateRoute>} />
     <Route path="/fisioterapeuta" element={<PrivateRoute><PhysioDashboard /></PrivateRoute>} />
     <Route path="/cliente/historico" element={<PrivateRoute><HistoricoConsultas /></PrivateRoute>} />
+    <Route path="/cliente/proximas-consultas" element={<PrivateRoute><ProximasConsultas /></PrivateRoute>
+} />
 
 
   </Routes>

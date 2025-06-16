@@ -160,7 +160,7 @@ const FindTherapist = () => {
               const precoApresentado = especialidadesFiltradas?.[0]?.preco;
 
               return (
-                <div key={p.id} className="card" onClick={() => navigate(`/profissional/${p.id}`)}>
+                <div key={p.id} className="card" onClick={() => navigate(`/profissional/${p.id}?especialidade=${especialidade}&subespecialidade=${subespecialidade}`)}>
                   <img src={p.foto} alt={p.nome} />
                   <h3>{p.nome}</h3>
                   <p>{p.localizacao}{p.freguesia ? ` · ${p.freguesia}` : ""}</p>

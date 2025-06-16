@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../components/context/AuthContext";
 import "../styles/ProfileSection.css";
+import cidadesFreguesias from "../data/cidadesFreguesias";
 
 const ProfileSection = () => {
   const { user } = useAuth();
@@ -55,6 +56,26 @@ const ProfileSection = () => {
   const [novoLocal, setNovoLocal] = useState("");
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState("");
   const [subespecialidadeSelecionada, setSubespecialidadeSelecionada] = useState("");
+
+  const [areaCidade, setAreaCidade] = useState("");
+  const [areaFreguesia, setAreaFreguesia] = useState("");
+  const [areasAtuacao, setAreasAtuacao] = useState([]);
+
+
+  const handleAddAreaAtuacao = () => {
+    if (areaCidade && areaFreguesia) {
+      const nova = `${areaCidade} - ${areaFreguesia}`;
+      if (!areasAtuacao.includes(nova)) {
+        setAreasAtuacao(prev => [...prev, nova]);
+      }
+      setAreaCidade("");
+      setAreaFreguesia("");
+    }
+  };
+
+  const handleRemoveAreaAtuacao = (index) => {
+    setAreasAtuacao(prev => prev.filter((_, i) => i !== index));
+  };
 
   const handleAddDocumento = (e) => {
     const file = e.target.files[0];
@@ -238,42 +259,104 @@ const ProfileSection = () => {
         </div>
       </section>
 
-<section className="curriculo-section">
-  <h3>Currículo Profissional</h3>
-  <label>Anexar documento (PDF, JPG, DOC)</label>
-  <input type="file" onChange={handleAddDocumento} accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
-  <ul>
-    {curriculoDocs.map((doc, idx) => (
-      <li key={idx}>
-        {doc.file.name} ({doc.tipo}){" "}
-        <button onClick={() => handleRemoveDocumento(idx)}>Remover</button>
-      </li>
-    ))}
-  </ul>
-   <h3>Locais de Trabalho</h3>
-  <div className="dynamic-input">
-    <input
-      type="text"
-      placeholder="Ex: Clínica ABC"
-      value={novoLocal}
-      onChange={(e) => setNovoLocal(e.target.value)}
-    />
-    <button onClick={handleAddLocal}>Adicionar</button>
-  </div>
-  <ul>
-    {locaisTrabalho.map((local, i) => (
-      <li key={i}>
-        {local} <button onClick={() => handleRemoveLocal(i)}>Remover</button>
-      </li>
-    ))}
-  </ul>
- <div style={{ textAlign: "center", margin: "30px 0" }}>
-  <button className="save-all-btn" onClick={handleSalvarTudo}>
-    Guardar Alterações
-  </button>
- </div>
+      <section className="curriculo-section">
+        <h3>Biografia Profissional</h3>
+        <textarea
+          value={bio}
+          onChange={(e) => {
+            if (e.target.value.length <= maxBioLength) {
+              setBio(e.target.value);
+            }
+          }}
+          placeholder="Ex: Tenho mais de 10 anos de experiência em fisioterapia desportiva..."
+          rows={4}
+        />
+        <div className="bio-footer">
+          <small>{bio.length}/{maxBioLength} caracteres</small>
+          <button className="bio-save-btn" onClick={handleSalvarBio}>
+            Guardar Biografia
+          </button>
+        </div>
+      </section>
 
-</section>
+
+      <section className="curriculo-section">
+        <h3>Currículo Profissional</h3>
+        <label>Anexar documento (PDF, JPG, DOC)</label>
+        <input type="file" onChange={handleAddDocumento} accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+        <ul>
+          {curriculoDocs.map((doc, idx) => (
+            <li key={idx}>
+              {doc.file.name} ({doc.tipo}){" "}
+              <button onClick={() => handleRemoveDocumento(idx)}>Remover</button>
+            </li>
+          ))}
+        </ul>
+        <h3>Experiencia Profissional</h3>
+        <div className="dynamic-input">
+          <input
+            type="text"
+            placeholder="Ex: Clínica ABC"
+            value={novoLocal}
+            onChange={(e) => setNovoLocal(e.target.value)}
+          />
+          <button onClick={handleAddLocal}>Adicionar</button>
+        </div>
+        <ul>
+          {locaisTrabalho.map((local, i) => (
+            <li key={i}>
+              {local} <button onClick={() => handleRemoveLocal(i)}>Remover</button>
+            </li>
+          ))}
+        </ul>
+      <div style={{ textAlign: "center", margin: "30px 0" }}>
+        <button className="save-all-btn" onClick={handleSalvarTudo}>
+          Guardar Alterações
+        </button>
+      </div>
+
+      </section>
+
+
+      <section className="curriculo-section">
+        <h3>Áreas de Atuação</h3>
+        <div className="dynamic-input">
+          <select value={areaCidade} onChange={(e) => {
+            setAreaCidade(e.target.value);
+            setAreaFreguesia("");
+          }}>
+            <option value="">Selecionar Cidade</option>
+            {Object.keys(cidadesFreguesias).map((cidade, idx) => (
+              <option key={idx} value={cidade}>{cidade}</option>
+            ))}
+          </select>
+
+          {areaCidade && (
+            <select value={areaFreguesia} onChange={(e) => setAreaFreguesia(e.target.value)}>
+              <option value="">Selecionar Freguesia</option>
+              {cidadesFreguesias[areaCidade].map((freg, idx) => (
+                <option key={idx} value={freg}>{freg}</option>
+              ))}
+            </select>
+          )}
+
+          <button onClick={handleAddAreaAtuacao} disabled={!areaCidade || !areaFreguesia}>
+            Adicionar Área
+          </button>
+        </div>
+
+        <ul className="area-list">
+          {areasAtuacao.map((area, i) => (
+            <li key={i} className="area-item">
+              <span>{area}</span>
+              <button onClick={() => handleRemoveAreaAtuacao(i)}>Remover</button>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+
+
 
 
       <section className="edit-prices-section">

@@ -5,6 +5,7 @@ const profissionais = [
     localizacao: "Lisboa",
     freguesia: "Areeiro",
     foto: "/assets/profissionais/ana.jpg",
+    bio: "Especialista em fisioterapia desportiva com foco em reabilitação de atletas.",
     especialidadesDetalhadas: [
       {
         especialidade: "Fisioterapia",
@@ -18,7 +19,7 @@ const profissionais = [
       },
       {
         especialidade: "Osteopatia",
-        subespecialidade: "", // sem sub
+        subespecialidade: "",
         preco: 38
       }
     ],
@@ -37,10 +38,11 @@ const profissionais = [
     localizacao: "Porto",
     freguesia: "Cedofeita",
     foto: "/assets/profissionais/joao.jpg",
+    bio: "Osteopata experiente com abordagem centrada no alívio da dor crónica e mobilidade.",
     especialidadesDetalhadas: [
       {
         especialidade: "Osteopatia",
-        subespecialidade: "", // sem sub
+        subespecialidade: "",
         preco: 35
       }
     ],
@@ -58,10 +60,11 @@ const profissionais = [
     localizacao: "Lisboa",
     freguesia: "Penha de França",
     foto: "/assets/profissionais/marta.jpg",
+    bio: "Enfermeira dedicada aos cuidados domiciliários, com especialização em paliativos.",
     especialidadesDetalhadas: [
       {
         especialidade: "Enfermagem ao domicílio",
-        subespecialidade: "", // sem sub
+        subespecialidade: "",
         preco: 30
       }
     ],
@@ -76,4 +79,3 @@ const profissionais = [
 ];
 
 export default profissionais;
-

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import profissionaisData from "../data/profissionais";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useAuth } from "../components/context/AuthContext";
 import "../styles/ProfessionalProfile.css";
 
-const ProfessionalProfile = () => {
+const ProfessionalProfile = () => { 
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation(); // 👈 necessário para ler query string
   const { isAuthenticated, user, login } = useAuth();
   const [packSize, setPackSize] = useState("5");
 
@@ -19,8 +20,19 @@ const ProfessionalProfile = () => {
 
   const especialidadesUnicas = [...new Set(especialidadesDetalhadas.map(e => e.especialidade))];
 
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState(especialidadesUnicas[0] || "");
-  const [subespecialidadeSelecionada, setSubespecialidadeSelecionada] = useState("");
+  // 🔍 Lê especialidade/subespecialidade da query string
+  const queryParams = new URLSearchParams(location.search);
+  const especialidadeQuery = queryParams.get("especialidade") || "";
+  const subespecialidadeQuery = queryParams.get("subespecialidade") || "";
+
+  // 🔽 Define estados com base nos filtros recebidos (ou defaults)
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState(
+    especialidadeQuery && especialidadesUnicas.includes(especialidadeQuery)
+      ? especialidadeQuery
+      : especialidadesUnicas[0] || ""
+  );
+
+  const [subespecialidadeSelecionada, setSubespecialidadeSelecionada] = useState(subespecialidadeQuery || "");
 
   const subespecialidadesFiltradas = especialidadesDetalhadas
     .filter(e => e.especialidade === especialidadeSelecionada && e.subespecialidade)
@@ -103,8 +115,6 @@ const ProfessionalProfile = () => {
             💶 {precoAtual ? `${precoAtual.toFixed(2)}€` : "—"} / consulta
           </p>
 
-          <p className="descricao">{profissional.descricao}</p>
-
           {isAuthenticated && saldo > 0 && (
             <p style={{ color: "#28a745", fontWeight: "bold", marginTop: "1rem" }}>
               Saldo de sessões disponíveis: {saldo}
@@ -118,12 +128,19 @@ const ProfessionalProfile = () => {
           <div className="pack-compra">
             <label htmlFor="pack">Ou compre um pack:</label>
             <select id="pack" value={packSize} onChange={(e) => setPackSize(e.target.value)}>
-              <option value="3">Pack 3 Sessões</option>
               <option value="5">Pack 5 Sessões</option>
               <option value="10">Pack 10 Sessões</option>
+              <option value="15">Pack 15 Sessões</option>
+              <option value="20">Pack 20 Sessões</option>
             </select>
             <button onClick={handleComprarPack}>Comprar Pack</button>
           </div>
+
+          <section className="bio-section">
+            <h3>Sobre o profissional</h3>
+            <p>{profissional.bio || "Este profissional ainda não adicionou uma biografia."}</p>
+          </section>
+
 
           {profissional.formacoes?.length > 0 && (
             <section className="formacoes-section">
@@ -138,7 +155,7 @@ const ProfessionalProfile = () => {
 
           {profissional.locaisTrabalho?.length > 0 && (
             <section className="locais-section">
-              <h3>Locais de Trabalho</h3>
+              <h3>Experiência Profissional</h3>
               <ul>
                 {profissional.locaisTrabalho.map((l, idx) => (
                   <li key={idx}>{l}</li>

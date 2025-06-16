@@ -9,8 +9,8 @@ import "../styles/ClientDashboard.css";
 const dashboardItems = [
   {
     title: "Próximas Consultas",
-    text: "Consulte as suas próximas sessões de fisioterapia."
-    // future action
+    text: "Consulte as suas próximas sessões de fisioterapia.",
+    action: "proximas"
   },
   {
     title: "Marcar Nova Consulta",
@@ -41,8 +41,9 @@ const ClientDashboard = () => {
       navigate("/cliente/marcar-consulta");
     } else if (action === "historico") {
       navigate("/cliente/historico");
+    } else if (action === "proximas") {
+      navigate("/cliente/proximas-consultas");
     }
-    // futuros: próximas consultas, favoritos, etc.
   };
 
   return (
@@ -92,4 +93,3 @@ const ClientDashboard = () => {
 };
 
 export default ClientDashboard;
-

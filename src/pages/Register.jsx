@@ -44,9 +44,74 @@ const Register = () => {
             <input type="date" required />
           </div>
           <div className="form-group">
-            <label>Histórico Clínico</label>
-            <textarea placeholder="Descreva o seu histórico clínico" />
+            <label>Profissão</label>
+            <input type="text" placeholder="Ex: Fisioterapeuta" />
           </div>
+          <div className="form-group">
+            <label>Nacionalidade</label>
+            <input type="text" placeholder="Ex: Portuguesa" />
+          </div>
+
+          <div className="clinical-section">
+            <h3>Informação Clínica</h3>
+
+            <div className="form-group">
+              <label>Problema principal / Historial atual</label>
+              <textarea placeholder="Descreva o problema atual ou motivo da consulta" />
+            </div>
+
+            <div className="form-group">
+              <label>Produtos de apoio (cadeiras de rodas, canadianas, etc.)</label>
+              <textarea placeholder="Indique os produtos de apoio utilizados" />
+            </div>
+
+            <div className="form-group">
+              <label>Antecedentes pessoais</label>
+              <textarea placeholder="Ex: hipertensão, diabetes, AVC..." />
+            </div>
+
+            <div className="form-group">
+              <label>História médica (cirurgias, medicação atual)</label>
+              <textarea placeholder="Descreva se toma alguma medicação ou se fez cirurgias" />
+            </div>
+
+            <div className="form-group">
+              <label>Condições habitacionais (escadas, elevador, etc.)</label>
+              <textarea placeholder="Descreva o acesso à habitação" />
+            </div>
+
+            <div className="form-group">
+              <label>Dificuldades na comunicação</label>
+              <select>
+                <option value="">Selecionar</option>
+                <option value="nao">Não</option>
+                <option value="sim">Sim</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Autocuidados</label>
+              <select>
+                <option value="">Selecionar</option>
+                <option value="independente">Independente</option>
+                <option value="nao independente">Não Independente</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Expectativas e objetivos</label>
+              <textarea placeholder="O que pretende com a intervenção?" />
+            </div>
+
+            <div className="form-group">
+              <label>Anexar Exames, Relatórios Clínicos ou Análises</label>
+              <div className="file-upload-wrapper enhanced">
+                <input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+              </div>
+              <small>Formatos aceites: PDF, imagens ou Word</small>
+            </div>
+          </div>
+
           <button type="submit" className="register-button">Registar</button>
         </form>
         <p className="login-link">

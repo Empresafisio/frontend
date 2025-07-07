@@ -8,6 +8,13 @@ const ProfileSection = () => {
   const [activeTab, setActiveTab] = useState("porReceber");
   const [bio, setBio] = useState(user.bio || "");
   const maxBioLength = 100;
+  const [idade, setIdade] = useState("");
+  const [sexo, setSexo] = useState("");
+  const [foto, setFoto] = useState(null);
+  const [idiomaSelecionado, setIdiomaSelecionado] = useState("");
+  const [nivelSelecionado, setNivelSelecionado] = useState("");
+  const [idiomasFalados, setIdiomasFalados] = useState([]);
+
 
   const especialidadesDisponiveis = {
     "Fisioterapia": [
@@ -161,103 +168,79 @@ const ProfileSection = () => {
 
   return (
     <>
-      <section className="profile-form-section">
-        <h2>Perfil do Fisioterapeuta</h2>
-        <p>Informações da sua conta:</p>
-        <div className="profile-form">
-          <div className="form-row">
-            <div className="form-group">
-              <label>Nome</label>
-              <input type="text" value={user?.name || "Profissional"} readOnly />
-            </div>
-            <div className="form-group">
-              <label>Utilizador</label>
-              <input type="text" value={user?.username || "N/A"} readOnly />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label>Data de Registo</label>
-              <input type="text" value={user?.registrationDate || "N/A"} readOnly />
-            </div>
-            <div className="form-group">
-              <label>Última Visita</label>
-              <input type="text" value={user?.lastVisit || "N/A"} readOnly />
-            </div>
-          </div>
-        </div>
-      </section>
+<section className="profile-form-section">
+  <div className="profile-header">
+    <div className="profile-title-centered">
+      <h2>Perfil do Fisioterapeuta</h2>
+      <p>Informações da sua conta:</p>
+    </div>
+    {foto && (
+      <div className="foto-preview-canto">
+        <img src={foto} alt="Foto de Perfil" />
+      </div>
+    )}
+  </div>
 
-      <section className="billing-section">
-        <div className="billing-tabs">
-          <button className={activeTab === "porReceber" ? "active" : ""} onClick={() => setActiveTab("porReceber")}>
-            Por Receber
-          </button>
-          <button className={activeTab === "historico" ? "active" : ""} onClick={() => setActiveTab("historico")}>
-            Histórico
-          </button>
-        </div>
+  <div className="profile-form-grid">
+    <div className="form-group">
+      <label>Nome</label>
+      <input type="text" value={user?.name || "Profissional"} readOnly />
+    </div>
 
-        <div className="billing-content">
-          {activeTab === "porReceber" && (
-            <div className="billing-table">
-              <h3>Montantes por receber</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Paciente</th>
-                    <th>Data</th>
-                    <th># Sessões</th>
-                    <th>A Receber</th>
-                    <th>Com Retenção</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Paciente Exemplo</td>
-                    <td>2025/02</td>
-                    <td>3</td>
-                    <td>150€</td>
-                    <td>Sim</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div className="billing-info">
-                <h4>Dados para Emissão de Recibos</h4>
-                <p><strong>Designação:</strong> FISIOHOME, LDA</p>
-                <p><strong>NIF:</strong> [preencher]</p>
-                <p><strong>Morada:</strong> Rua [preencher]</p>
-              </div>
-            </div>
-          )}
+    <div className="form-group">
+      <label>Utilizador</label>
+      <input type="text" value={user?.username || "N/A"} readOnly />
+    </div>
 
-          {activeTab === "historico" && (
-            <div className="billing-table">
-              <h3>Histórico de Recebimentos</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Data</th>
-                    <th># Sessões</th>
-                    <th>S/ Retenção</th>
-                    <th>C/ Retenção</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {historyData.map((item, idx) => (
-                    <tr key={idx}>
-                      <td>{item.anoMes}</td>
-                      <td>{item.sessoes}</td>
-                      <td>{item.sRetencao}€</td>
-                      <td>{item.cRetencao}€</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      </section>
+    <div className="form-group">
+      <label>Data de Registo</label>
+      <input type="text" value={user?.registrationDate || "N/A"} readOnly />
+    </div>
+
+    <div className="form-group">
+      <label>Última Visita</label>
+      <input type="text" value={user?.lastVisit || "N/A"} readOnly />
+    </div>
+
+    <div className="form-group">
+      <label>Idade</label>
+      <input
+        type="number"
+        value={idade}
+        onChange={(e) => setIdade(e.target.value)}
+        placeholder="Ex: 32"
+      />
+    </div>
+
+    <div className="form-group">
+      <label>Sexo</label>
+      <select value={sexo} onChange={(e) => setSexo(e.target.value)}>
+        <option value="">Selecionar</option>
+        <option value="masculino">Masculino</option>
+        <option value="feminino">Feminino</option>
+        <option value="outro">Outro</option>
+      </select>
+    </div>
+
+    <div className="form-group foto-upload-col" style={{ gridColumn: "1 / -1" }}>
+      <label>Fotografia de Perfil</label>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          const file = e.target.files[0];
+          if (file) {
+            setFoto(URL.createObjectURL(file));
+          }
+        }}
+      />
+    </div>
+  </div>
+</section>
+
+
+
+    
 
       <section className="curriculo-section">
         <h3>Biografia Profissional</h3>
@@ -316,6 +299,57 @@ const ProfileSection = () => {
       </div>
 
       </section>
+
+      <section className="curriculo-section">
+        <h3>Idiomas Falados</h3>
+        <div className="dynamic-input">
+          <select value={idiomaSelecionado} onChange={(e) => setIdiomaSelecionado(e.target.value)}>
+            <option value="">Selecionar Idioma</option>
+            <option value="Português">Português</option>
+            <option value="Inglês">Inglês</option>
+            <option value="Espanhol">Espanhol</option>
+            <option value="Francês">Francês</option>
+            <option value="Alemão">Alemão</option>
+            <option value="Outro">Outro</option>
+          </select>
+
+          <select value={nivelSelecionado} onChange={(e) => setNivelSelecionado(e.target.value)}>
+            <option value="">Selecionar Nível</option>
+            <option value="Iniciante">Iniciante</option>
+            <option value="Intermédio">Intermédio</option>
+            <option value="Fluente">Fluente</option>
+            <option value="Nativo">Nativo</option>
+          </select>
+
+          <button
+            onClick={() => {
+              if (idiomaSelecionado && nivelSelecionado) {
+                const novo = `${idiomaSelecionado} - ${nivelSelecionado}`;
+                if (!idiomasFalados.includes(novo)) {
+                  setIdiomasFalados((prev) => [...prev, novo]);
+                }
+                setIdiomaSelecionado("");
+                setNivelSelecionado("");
+              }
+            }}
+            disabled={!idiomaSelecionado || !nivelSelecionado}
+          >
+            Adicionar Idioma
+          </button>
+        </div>
+
+        <ul className="area-list">
+          {idiomasFalados.map((idioma, i) => (
+            <li key={i} className="area-item">
+              <span>{idioma}</span>
+              <button onClick={() => setIdiomasFalados((prev) => prev.filter((_, index) => index !== i))}>
+                Remover
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+
 
 
       <section className="curriculo-section">

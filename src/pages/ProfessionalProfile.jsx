@@ -164,6 +164,32 @@ const ProfessionalProfile = () => {
             </section>
           )}
 
+          {profissional.idiomas?.length > 0 && (
+            <section className="idiomas-section">
+              <h3>Idiomas Falados</h3>
+              <ul>
+                {profissional.idiomas.map((i, idx) => (
+                  <li key={idx}>
+                    <strong>{i.idioma}</strong> — {i.nivel}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {profissional.areasAtuacao?.length > 0 && (
+            <section className="atendimento-section">
+              <h3>Zona de Atendimento</h3>
+              <ul>
+                {profissional.areasAtuacao.map((area, idx) => (
+                  <li key={idx}>📍 {area}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+
+
           <section className="avaliacoes">
             <h3>O que dizem os clientes</h3>
             <div className="avaliacao">
@@ -176,10 +202,6 @@ const ProfessionalProfile = () => {
             </div>
           </section>
 
-          <section className="atendimento">
-            <h3>Zona de Atendimento</h3>
-            <p>{profissional.localizacao} e arredores (até 10 km)</p>
-          </section>
         </div>
       </main>
       <Footer />

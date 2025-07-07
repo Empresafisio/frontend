@@ -1,4 +1,4 @@
-const profissionais = [
+const profissionais = [ 
   {
     id: "1",
     nome: "Joana Silva",
@@ -30,7 +30,12 @@ const profissionais = [
     locaisTrabalho: [
       "Clínica Movimento",
       "Hospital Santa Maria"
-    ]
+    ],
+    idiomas: [
+      { idioma: "Português", nivel: "Nativo" },
+      { idioma: "Inglês", nivel: "Intermédio" }
+    ],
+    areasAtuacao: ["Areeiro", "Alvalade", "Campo de Ourique"]
   },
   {
     id: "2",
@@ -52,7 +57,11 @@ const profissionais = [
     ],
     locaisTrabalho: [
       "Clínica Terapias Norte"
-    ]
+    ],
+    idiomas: [
+      { idioma: "Português", nivel: "Nativo" }
+    ],
+    areasAtuacao: ["Cedofeita", "Boavista"]
   },
   {
     id: "3",
@@ -74,7 +83,12 @@ const profissionais = [
     ],
     locaisTrabalho: [
       "Serviço Domiciliário EnfCare"
-    ]
+    ],
+    idiomas: [
+      { idioma: "Português", nivel: "Nativo" },
+      { idioma: "Francês", nivel: "Intermédio" }
+    ],
+    areasAtuacao: ["Penha de França", "Arroios"]
   }
 ];
 

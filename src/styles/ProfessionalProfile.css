@@ -171,3 +171,65 @@ h2 {
   line-height: 1.6;
   margin-top: 0.5rem;
 }
+
+
+.idiomas-section,
+.freguesias-section {
+  margin-top: 25px;
+}
+
+.idiomas-section h3,
+.freguesias-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.idiomas-section ul,
+.freguesias-section ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.idiomas-section li,
+.freguesias-section li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+
+.idiomas-section,
+.atendimento-section {
+  margin-top: 2rem;
+  background-color: #f9f9f9;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.idiomas-section h3,
+.atendimento-section h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.idiomas-section ul,
+.atendimento-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.idiomas-section li,
+.atendimento-section li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.idiomas-section li:last-child,
+.atendimento-section li:last-child {
+  border-bottom: none;
+}

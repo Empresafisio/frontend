@@ -1,27 +1,15 @@
 import React, { useState } from "react";
 import "../styles/TratamentosSection.css";
+import modeloRelatorio from "../assets/DOC-20250709-WA0020.docx"; // Coloque o ficheiro na pasta /src/assets/
 
 const TratamentosSection = () => {
-  // Exemplo de dados simulados das sessões
   const [sessoes, setSessoes] = useState([
-    {
-      id: 1,
-      data: "2024-05-10",
-      paciente: "João Silva",
-      relatorio: null,
-    },
-    {
-      id: 2,
-      data: "2024-05-17",
-      paciente: "Maria Costa",
-      relatorio: null,
-    },
+    { id: 1, data: "2024-05-10", paciente: "João Silva", relatorio: null },
+    { id: 2, data: "2024-05-17", paciente: "Maria Costa", relatorio: null },
   ]);
 
-  const handleUploadRelatorio = (e, index) => {
-    const file = e.target.files[0];
+  const handleUploadRelatorio = (file, index) => {
     if (!file) return;
-
     const updated = [...sessoes];
     updated[index].relatorio = file;
     setSessoes(updated);
@@ -39,7 +27,7 @@ const TratamentosSection = () => {
               <th>Data</th>
               <th>Paciente</th>
               <th>Relatório</th>
-              <th>Anexar Relatório</th>
+              <th>Opções</th>
             </tr>
           </thead>
           <tbody>
@@ -55,10 +43,17 @@ const TratamentosSection = () => {
                   )}
                 </td>
                 <td>
+                  <a
+                    href={modeloRelatorio}
+                    download={`Modelo_Relatorio_${sessao.paciente}.docx`}
+                  >
+                    <button type="button">Baixar Modelo</button>
+                  </a>
                   <input
                     type="file"
                     accept=".pdf,.doc,.docx,.jpg,.png"
-                    onChange={(e) => handleUploadRelatorio(e, index)}
+                    onChange={(e) => handleUploadRelatorio(e.target.files[0], index)}
+                    style={{ marginLeft: "8px" }}
                   />
                 </td>
               </tr>
@@ -71,4 +66,3 @@ const TratamentosSection = () => {
 };
 
 export default TratamentosSection;
-

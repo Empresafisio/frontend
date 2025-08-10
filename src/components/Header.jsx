@@ -52,73 +52,82 @@ const Header = ({ hideLoginButton, hideRegisterButton }) => {
         </Link>
 
         <nav style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          <div
-            onMouseEnter={() => setShowDropdown(true)}
-            onMouseLeave={() => setShowDropdown(false)}
-            style={{ position: "relative" }}
-          >
-            <span
-              style={{
-                fontSize: 14,
-                color: colors.header.text,
-                fontWeight: 400,
-                cursor: "pointer"
-              }}
-            >
-              Find a Therapist
-            </span>
-            {showDropdown && (
-              <ul
-                style={{
-                  position: "absolute",
-                  top: "100%",
-                  left: 0,
-                  backgroundColor: "white",
-                  border: "1px solid #ccc",
-                  zIndex: 10,
-                  listStyle: "none",
-                  padding: 0,
-                  margin: 0,
-                  minWidth: 200,
-                  boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
-                }}
+          {user?.role !== "fisioterapeuta" && (
+            <>
+              <div
+                onMouseEnter={() => setShowDropdown(true)}
+                onMouseLeave={() => setShowDropdown(false)}
+                style={{ position: "relative" }}
               >
-                <li>
-                  <Link
-                    to="/find-a-therapist"
+                <span
+                  style={{
+                    fontSize: 14,
+                    color: colors.header.text,
+                    fontWeight: 400,
+                    cursor: "pointer"
+                  }}
+                >
+                  Find a Therapist
+                </span>
+                {showDropdown && (
+                  <ul
                     style={{
-                      display: "block",
-                      padding: "10px 16px",
-                      fontWeight: "bold",
-                      backgroundColor: "#f9f9f9",
-                      borderBottom: "1px solid #ddd",
-                      color: "#333",
-                      textDecoration: "none"
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      backgroundColor: "white",
+                      border: "1px solid #ccc",
+                      zIndex: 10,
+                      listStyle: "none",
+                      padding: 0,
+                      margin: 0,
+                      minWidth: 200,
+                      boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
                     }}
                   >
-                    Ver todos os profissionais
-                  </Link>
-                </li>
-                {especialidades.map((cat, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() => handleCategoriaClick(cat)}
-                    style={{
-                      padding: "10px 16px",
-                      cursor: "pointer",
-                      transition: "background-color 0.2s"
-                    }}
-                    onMouseEnter={(e) => (e.target.style.backgroundColor = "#f1f1f1")}
-                    onMouseLeave={(e) => (e.target.style.backgroundColor = "white")}
-                  >
-                    {cat}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+                    <li>
+                      <Link
+                        to="/find-a-therapist"
+                        style={{
+                          display: "block",
+                          padding: "10px 16px",
+                          fontWeight: "bold",
+                          backgroundColor: "#f9f9f9",
+                          borderBottom: "1px solid #ddd",
+                          color: "#333",
+                          textDecoration: "none"
+                        }}
+                      >
+                        Ver todos os profissionais
+                      </Link>
+                    </li>
+                    {especialidades.map((cat, idx) => (
+                      <li
+                        key={idx}
+                        onClick={() => handleCategoriaClick(cat)}
+                        style={{
+                          padding: "10px 16px",
+                          cursor: "pointer",
+                          transition: "background-color 0.2s"
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.target.style.backgroundColor = "#f1f1f1")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.target.style.backgroundColor = "white")
+                        }
+                      >
+                        {cat}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
 
-          <NavLink to="/my-concerns" label="My Concerns" />
+              <NavLink to="/my-concerns" label="My Concerns" />
+            </>
+          )}
+
           <NavLink to="/about-us" label="About Us" />
           <NavLink to="/contact-us" label="Contact Us" />
           {!isAuthenticated && !hideRegisterButton && (
@@ -164,4 +173,3 @@ const NavLink = ({ to, label }) => (
 );
 
 export default Header;
-

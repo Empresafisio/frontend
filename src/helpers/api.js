@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 
 export async function fetchComBase(endpoint, options = {}) {
   const response = await fetch(`${API_URL}${endpoint}`, {
@@ -15,4 +15,5 @@ export async function fetchComBase(endpoint, options = {}) {
   }
 
   return response.json();
-}s
+}
+

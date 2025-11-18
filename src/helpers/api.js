@@ -1,19 +1,33 @@
-const API_URL = process.env.REACT_APP_API_URL;
+// src/utils/api.js
+const API_BASE_URL = "http://localhost:3001";
 
-export async function fetchComBase(endpoint, options = {}) {
-  const response = await fetch(`${API_URL}${endpoint}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-    ...options,
-  });
+const api = {
+  get: async (endpoint, token) => {
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+      },
+    });
+    return await res.json();
+  },
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(error || 'Erro no servidor');
-  }
+  post: async (endpoint, data, token) => {
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : undefined,
+      },
+      body: JSON.stringify(data),
+    });
 
-  return response.json();
-}
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.message || "Erro na requisição");
+    }
 
+    return await res.json();
+  },
+};
+
+export default api;

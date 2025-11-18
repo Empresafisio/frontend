@@ -1,8 +1,9 @@
+// src/pages/Login.jsx
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useAuth } from "../components/context/AuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { colors } from "../theme/colors";
 import { spacing } from "../theme/spacing";
 import { font } from "../theme/typography";
@@ -13,53 +14,29 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("[Login.jsx] Submeter formulário de login:", { email });
 
-    const mockUsers = [
-      {
-        email: "fisio@example.com",
-        password: "123456",
-        role: "fisioterapeuta",
-        name: "Dr. Ana Fisio"
-      },
-      {
-        email: "cliente@example.com",
-        password: "123456",
-        role: "cliente",
-        name: "Carlos Cliente",
-        favoritos: ["1", "2"],
-        historico: ["3", "4"]
-     }
-    ];
+    try {
+      const userData = await login(email, password);
+      console.log("[Login.jsx] ✅ login() devolveu:", userData);
 
-    const userData = mockUsers.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (userData) {
-      login({
-        ...userData,
-        username: email,
-        registrationDate: "01-01-2024",
-        lastVisit: "Hoje"
-      });
-
-      // Redirecionar para rota específica ou para a área pessoal
-      let redirectTo = new URLSearchParams(location.search).get("redirect");
-      if (!redirectTo) {
-        redirectTo = userData.role === "fisioterapeuta" ? "/fisioterapeuta" : "/cliente";
+      if (!userData) {
+        alert("Falha no login. Verifica as credenciais.");
+        return;
       }
 
-      navigate(redirectTo);
-    } else {
-      alert("Credenciais inválidas");
+      // Agora delegamos a lógica do role ao RoleBasedRedirect
+      navigate("/dashboard", { replace: true });
+    } catch (err) {
+      console.error("[Login.jsx] ✖ Erro no handleSubmit:", err);
+      alert("Falha no login: " + (err?.message || "Erro desconhecido"));
     }
   };
 
@@ -73,7 +50,7 @@ const Login = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding: spacing.lg
+          padding: spacing.lg,
         }}
       >
         <div
@@ -83,10 +60,12 @@ const Login = () => {
             borderRadius: 12,
             maxWidth: 400,
             width: "100%",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
           }}
         >
-          <h2 style={{ textAlign: "center", marginBottom: spacing.lg }}>Bem-vindo!</h2>
+          <h2 style={{ textAlign: "center", marginBottom: spacing.lg }}>
+            Bem-vindo!
+          </h2>
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: spacing.md }}>
               <label style={{ fontWeight: font.weight.bold }}>Email</label>
@@ -100,7 +79,7 @@ const Login = () => {
                   padding: spacing.sm,
                   fontSize: font.size.base,
                   border: `1px solid ${colors.login.border}`,
-                  borderRadius: 8
+                  borderRadius: 8,
                 }}
               />
             </div>
@@ -118,7 +97,7 @@ const Login = () => {
                     padding: spacing.sm,
                     fontSize: font.size.base,
                     border: `1px solid ${colors.login.border}`,
-                    borderRadius: 8
+                    borderRadius: 8,
                   }}
                 />
                 <span
@@ -128,10 +107,14 @@ const Login = () => {
                     top: "50%",
                     right: spacing.sm,
                     transform: "translateY(-50%)",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                 >
-                  <i className={`fa ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`} />
+                  <i
+                    className={`fa ${
+                      passwordVisible ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                  />
                 </span>
               </div>
             </div>
@@ -147,7 +130,7 @@ const Login = () => {
                   borderRadius: 8,
                   border: "none",
                   width: "100%",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 Login
@@ -162,4 +145,3 @@ const Login = () => {
 };
 
 export default Login;
-
